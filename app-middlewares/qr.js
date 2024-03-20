@@ -18,6 +18,7 @@ function generateVCard(fields) {
     return vCardString;
 }
 
+
 router.get('/init-qr', async (req, res) => {
     const csvFilePath = path.join(__dirname, 'names.csv');
     const logoPath = path.join(__dirname, 'pcmmis.png');

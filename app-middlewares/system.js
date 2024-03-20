@@ -7,7 +7,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const path = require('path');
 
-const csvFilePath = path.join(__dirname, 'names.csv');
+const csvFilePath = path.join(__dirname, 'attendees_db.csv');
 
 const mongoURL = 'mongodb+srv://zeucpcmadmin:p%4055w0rd@zeucpcm.ysiholk.mongodb.net/?retryWrites=true&w=majority&appName=zeucpcm';
 
@@ -100,7 +100,7 @@ router.post('/webhook', async (req, res) => {
           });
   
           if (results.length === 0) {
-              twiml.message("I'm sorry, We could not find your registration record. Please contact your Association president for verification.");
+              twiml.message("We could not find your registration record. Please contact your Association president for verification if you registered.");
           } else {
               console.log("Found registered user:", results[0]);
               registeredUser = results[0];
@@ -118,8 +118,8 @@ router.post('/webhook', async (req, res) => {
                 selectedRoom: '' 
             });
   
-            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Book a room\n2. Registration status\n3. Program outline`);
-     
+            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
+      
           }
   
          
@@ -132,14 +132,14 @@ router.post('/webhook', async (req, res) => {
   else{
 
       if (incomingMsg.toLowerCase() === 'hi'||incomingMsg.toLowerCase() === 'hello') {
-        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Book a room\n2. Registration status\n3. Program outline`);
-     } else {
+        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
+      } else {
  
      if (user && !user.username) {
        await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Book a room\n2. Registration status\n3. Program outline`);
+       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
       } else {
-         if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='1') {
+         if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
            try {
             const roomsCollection = db.collection('rooms');
 
@@ -149,41 +149,41 @@ router.post('/webhook', async (req, res) => {
              const cursorMale = roomsCollection.aggregate(aggGentsRooms);
              const availableMaleRooms = await cursorMale.toArray();
 
-            if(user.bookingStatus==="BOOKED"){
-               twiml.message(`Hey ${user.username}, You selected a room (Number: ${user.selectedRoom}) already.`);
-           }else{
+             twiml.message("This option is coming soon.");
 
-            if(user.gender==="M"){
+          //   if(user.bookingStatus==="BOOKED"){
+          //      twiml.message(`Hey ${user.username}, You selected a room (Number: ${user.selectedRoom}) already.`);
+          //  }else{
 
-              console.log("MALE HOSTELS")
+          //   if(user.gender==="M"){
 
-              if (availableMaleRooms.length > 0) {
-                let roomOptions = "Available Gents Hostels:\n";
-                availableMaleRooms.forEach(room => {
-                  roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
-                });
-                twiml.message(roomOptions);
-                await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
-              } else {
-                twiml.message("Sorry, there are no available rooms at the moment.");
-              }
+          //     if (availableMaleRooms.length > 0) {
+          //       let roomOptions = "Available Gents Hostels:\n";
+          //       availableMaleRooms.forEach(room => {
+          //         roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+          //       });
+          //       twiml.message(roomOptions);
+          //       await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
+          //     } else {
+          //       twiml.message("Sorry, there are no available rooms at the moment.");
+          //     }
 
-            }else{
+          //   }else{
 
-              console.log("FEMALE HOSTELS")
-              if (availableLadiesRooms.length > 0) {
-                let roomOptions = "Available Ladies Hostels:\n";
-                availableLadiesRooms.forEach(room => {
-                  roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
-                });
-                twiml.message(roomOptions);
-                await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
-              } else {
-                twiml.message("Sorry, there are no available rooms at the moment.");
-              }
-            }
+          //     console.log("FEMALE HOSTELS")
+          //     if (availableLadiesRooms.length > 0) {
+          //       let roomOptions = "Available Ladies Hostels:\n";
+          //       availableLadiesRooms.forEach(room => {
+          //         roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+          //       });
+          //       twiml.message(roomOptions);
+          //       await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
+          //     } else {
+          //       twiml.message("Sorry, there are no available rooms at the moment.");
+          //     }
+          //   }
 
-           }
+          //  }
            } catch (error) {
              console.error('Error retrieving available rooms:', error);
              twiml.message("Oops! Something went wrong. Please try again later.");
@@ -347,7 +347,7 @@ router.post('/webhook', async (req, res) => {
            } else {
              twiml.message(`Please reply with 'yes' to confirm your booking or 'no' to cancel.`);
            }
-         } else if (incomingMsg.toLowerCase().includes('registration status')||incomingMsg.toLowerCase().includes('2')) {
+         } else if (incomingMsg.toLowerCase().includes('registration status')||incomingMsg.toLowerCase().includes('1')) {
            // Handle registration status request
 
 
@@ -355,9 +355,10 @@ router.post('/webhook', async (req, res) => {
              const userData = await usersCollection.findOne({ _id: sender });
              if (userData) {
 
+
               let twilioMessage = `*Name:* ${userData.username}\n`;
                   twilioMessage += `*Gender:* ${userData.gender}\n`;
-                  twilioMessage += `*Proffession:* ${userData.title}\n`;
+                  twilioMessage += `*Designation:* ${userData.title}\n`;
                   twilioMessage += `*Email:* ${userData.email ? userData.email : '*(No email provided)*'}\n\n`;
                   twilioMessage += `*Sessions:*\n\n - ${userData.sessions.replace(/, /g, '\n- ')}\n\n`;
                   twilioMessage += `*Institute:* ${userData.institute}\n`;
@@ -378,8 +379,8 @@ router.post('/webhook', async (req, res) => {
            twiml.message("Program outline not available yet.");
          } else {
            twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Book a room\n2. Registration status\n3. Program outline`);
- 
+           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
+      
          }
      }}
     }
