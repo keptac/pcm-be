@@ -1,0 +1,50 @@
+{
+  "name": "express-mysql",
+  "version": "0.1.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "express",
+    "sda",
+    "zeuc",
+    "pcm"
+  ],
+  "author": "",
+  "bugs": {
+    "url": "https://www.zeucpcm.org"
+  },
+  "homepage": "https://www.zeucpcm.org",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.2.0",
+    "cryptr": "^6.0.1",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^6.5.0",
+    "mysql2": "^2.3.3",
+    "node-pre-gyp": "^0.14.0",
+    "nodejs-md5": "^1.1.0",
+    "nodemailer": "^6.4.2",
+    "nodemon": "^2.0.22",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "qrcode-svg": "^1.1.0",
+    "rand-token": "^0.4.0",
+    "request": "^2.88.0",
+    "twilio": "^5.0.1"
+  }
+}
