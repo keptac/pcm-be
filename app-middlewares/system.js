@@ -115,10 +115,11 @@ router.post('/webhook', async (req, res) => {
                 institute: registeredUser.Organization,
                 registrationStatus: 'REGISTERED',
                 bookingStatus: '', 
-                selectedRoom: '' 
+                selectedRoom: 'NONE',
+                checkinStatus: 'NOT CHECKED IN'
             });
   
-            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
+            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
       
           }
   
@@ -132,12 +133,12 @@ router.post('/webhook', async (req, res) => {
   else{
 
       if (incomingMsg.toLowerCase() === 'hi'||incomingMsg.toLowerCase() === 'hello') {
-        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
+        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
       } else {
  
      if (user && !user.username) {
        await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
+       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
       } else {
          if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
            try {
@@ -363,8 +364,8 @@ router.post('/webhook', async (req, res) => {
                   twilioMessage += `*Sessions:*\n\n - ${userData.sessions.replace(/, /g, '\n- ')}\n\n`;
                   twilioMessage += `*Institute:* ${userData.institute}\n`;
                   twilioMessage += `*Registration Status:* ${userData.registrationStatus}\n`;
-                  twilioMessage += `*Booking Status:* ${userData.bookingStatus}\n`;
-                  twilioMessage += `*Selected Room:* ${userData.selectedRoom}`;
+                  twilioMessage += `*Booked Room:* ${userData.selectedRoom}\n`;
+                  twilioMessage += `*Check In Status:* ${userData.checkinStatus}\n`;
 
               // userMap = userData
                twiml.message(`Your registration details:\n\n${twilioMessage}`);
@@ -377,9 +378,11 @@ router.post('/webhook', async (req, res) => {
            }
          } else if (incomingMsg.toLowerCase().includes('program outline')||incomingMsg.toLowerCase().includes('3')) {
            twiml.message("Program outline not available yet.");
-         } else {
+         } else if (incomingMsg.toLowerCase().replace("-","").includes('checkin') || incomingMsg.toLowerCase().includes('4')) {
+          twiml.message("You need to first book a room.");
+        } else {
            twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline`);
+           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
       
          }
      }}
