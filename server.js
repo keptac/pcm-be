@@ -38,8 +38,10 @@ app.use('/pcm/api/qr', pcmRouter);
 //   cert: fs.readFileSync('./certs/pcm.pem')
 // };
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server is running on port ${process.env.PORT} OR 3000`);
 });
 
 // https.createServer(options, app).listen(port);
