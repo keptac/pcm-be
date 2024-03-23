@@ -91,7 +91,9 @@ router.post('/webhook', async (req, res) => {
   
       try {
           const results = await new Promise((resolve, reject) => {
-              searchRow(csvFilePath, columnName, searchValue, (error, results) => {
+
+            console.log("finding attendeee"+ csvFilePath+":"+searchValue)
+               searchRow(csvFilePath, columnName, searchValue, (error, results) => {
                   if (error) {
                       console.error('Error Occurred:', error);
                       reject(error);
@@ -462,26 +464,25 @@ router.post('/webhook', async (req, res) => {
 
 
 // Function to search for a row with a particular value in the specified column
-async function searchRow(csvFilePath, columnName, searchValue) {
+async function searchRow(csvFilePath, columnName, searchValue, callback) {
   const results = [];
-
-  return new Promise((resolve, reject) => {
-    fs.createReadStream(csvFilePath)
+  
+  fs.createReadStream(csvFilePath)
       .pipe(csv())
       .on('data', (data) => {
-        if (data[columnName] === searchValue) {
-          results.push(data);
-        }
+          // Check if the value in the specified column matches the search value
+          if (data[columnName] === searchValue) {
+              results.push(data);
+          }
+          
       })
       .on('end', () => {
-        resolve(results);
+          callback(null, results);
       })
       .on('error', (error) => {
-        reject(error);
+          callback(error);
       });
-  });
 }
-
 
 
 module.exports = router;
