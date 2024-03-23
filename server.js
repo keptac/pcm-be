@@ -33,13 +33,13 @@ app.use('/pcm/api/users', usersRouter);
 app.use('/pcm/api/system', systemRouter);
 app.use('/pcm/api/qr', pcmRouter);
 
-const options = {
-  key: fs.readFileSync('./certs/nmbconnectonline.co.zw.key'),
-  cert: fs.readFileSync('./certs/nmbconnectonline_co_zw.pem')
-};
+// const options = {
+//   key: fs.readFileSync('./certs/pcm.co.zw.key'),
+//   cert: fs.readFileSync('./certs/pcm.pem')
+// };
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
-https.createServer(options, app).listen(port);
+// https.createServer(options, app).listen(port);
