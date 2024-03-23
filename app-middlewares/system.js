@@ -73,6 +73,8 @@ router.post('/webhook', async (req, res) => {
 
   const twiml = new MessagingResponse();
 
+  console.log("received message from "+ sender);
+
 
   try {
     await mongoClient.connect();
@@ -94,12 +96,14 @@ router.post('/webhook', async (req, res) => {
                       console.error('Error Occurred:', error);
                       reject(error);
                   } else {
+                      console.log("Sender request result: "+ results);
                       resolve(results);
                   }
               });
           });
   
           if (results.length === 0) {
+              console.log("Sender registration not found: "+ sender);
               twiml.message("We could not find your registration record. Please contact your Association president for verification if you registered.");
           } else {
               console.log("Found registered user:", results[0]);
@@ -152,6 +156,7 @@ router.post('/webhook', async (req, res) => {
 
              twiml.message("This option is closed at the moment. We will send communication when this option becomes available.");
 
+             console.log("Sender request: "+ incomingMsg);
           //   if(user.bookingStatus==="BOOKED"){
           //      twiml.message(`Hey ${user.username}, You selected a room (Number: ${user.selectedRoom}) already.`);
           //  }else{
@@ -198,6 +203,8 @@ router.post('/webhook', async (req, res) => {
                 if (roomNumberParts.length !== 3) {
                   twiml.message('Invalid room number. Enter room number from the list above in the format: H1_R000_G');
                 }else{
+
+                  console.log("Sender request rooms: "+ user.bookingStatus);
 
                 const hostel = roomNumberParts[0];
                 const room = roomNumberParts[1];
