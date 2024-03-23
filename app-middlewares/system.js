@@ -445,13 +445,13 @@ router.post('/webhook', async (req, res) => {
      }}
     }
 
-    console.log("DB Connection closed");
-    mongoClient.close();
+ 
 
   } catch (error) {
     console.error('Error:', error);
     twiml.message(`Oops! Something went wrong. Please try again later.`);
   } finally {
+    console.log("DB Connection closed");
     await mongoClient.close();
   }
 
