@@ -125,7 +125,7 @@ router.post('/webhook', async (req, res) => {
                 checkinStatus: 'NOT CHECKED IN'
             });
   
-            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
+            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Check-in\n5. Theme Song`);
       
           }
   
@@ -139,12 +139,12 @@ router.post('/webhook', async (req, res) => {
   else{
 
       if (incomingMsg.toLowerCase() === 'hi'||incomingMsg.toLowerCase() === 'hello') {
-        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
+        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Check-in\n5. Theme Song`);
       } else {
  
      if (user && !user.username) {
        await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
+       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Check-in\n5. Theme Song`);
       } else {
          if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
            try {
@@ -359,7 +359,7 @@ router.post('/webhook', async (req, res) => {
              const selectedRoom = user.selectedRoom;
              await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'BOOKED'} });
              twiml.message(`Your booking for Room ${selectedRoom} has been confirmed.`);
-             twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Book a room\n2. Registration status\n3. Program outline\n4. Check-in`);
+             twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. View Booking Status\n2. Registration status\n3. Program outline\n4. Check-in\n5. Theme song`);
  
            } else if (incomingMsg.toLowerCase() === 'no') {
              const selectedRoom = user.selectedRoom;
@@ -444,7 +444,7 @@ router.post('/webhook', async (req, res) => {
           twiml.message(song);
         } else {
            twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
+           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Check-in\n5. Theme Song`);
       
          }
      }}
