@@ -10,7 +10,7 @@ const authRouter = require('./app-middlewares/auth');
 
 const pcmRouter = require('./app-middlewares/qr');
 
-const port = 8888;
+const port = 3000;
 const app = express();
 
 var cors = require('cors');
