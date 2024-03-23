@@ -106,7 +106,7 @@ router.post('/webhook', async (req, res) => {
   
           if (results.length === 0) {
               console.log("Sender registration not found: "+ sender);
-              twiml.message("We could not find your registration record. Please contact your Association president for verification if you registered.");
+              twiml.message("We could not find your registration record 🥺. Please contact your Association president for verification if you registered.");
           } else {
               console.log("Found registered user:", results[0]);
               registeredUser = results[0];
@@ -451,7 +451,7 @@ router.post('/webhook', async (req, res) => {
 
   } catch (error) {
     console.error('Error:', error);
-    twiml.message(`Oops! Something went wrong. Please try again later.`);
+    twiml.message(`We are experiencing large number of requests at this moment. Please try again in a moment 🙏🏽.`);
   } finally {
     console.log("DB Connection closed");
     await mongoClient.close();
