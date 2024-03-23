@@ -156,8 +156,8 @@ router.post('/webhook', async (req, res) => {
              const cursorMale = roomsCollection.aggregate(aggGentsRooms);
              const availableMaleRooms = await cursorMale.toArray();
 
-            twiml.message("Room Key\n: H1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor[Ground(G), Upper(U)]")
-            twiml.message("This option is closed at the moment. We will send communication when this option becomes available.");
+            // twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor[Ground(G), Upper(U)]")
+            twiml.message("This option is closed at the moment. We will send communication when it becomes available.");
 
             console.log("Sender request: "+ incomingMsg);
 
