@@ -454,7 +454,7 @@ router.post('/webhook', async (req, res) => {
     twiml.message(`We are experiencing large number of requests at this moment. Please try again in a moment 🙏🏽.`);
   } finally {
     console.log("DB Connection closed");
-    await mongoClient.close();
+    // await mongoClient.close();
   }
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
