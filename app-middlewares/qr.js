@@ -58,7 +58,7 @@ router.get('/init-qr', async (req, res) => {
             const logoSvg = `<defs>${clipPath}</defs><image x="40%" y="40%" width="${imageSize}" height="${imageSize}" clip-path="url(#${clipPathId})" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64,${logoData}" />`;
             const modifiedSvgString = svgString.replace('</svg>', `${logoSvg}</svg>`);
 
-            fs.writeFileSync(`pcmVcards/${row['Organization']}_${row['Name']}.svg`, modifiedSvgString, 'utf-8');
+            fs.writeFileSync(`pcmVcards/${row['Title']}/${row['Organization']}_${row['Name']}.svg`, modifiedSvgString, 'utf-8');
 
             console.log(`QR code for ${row['Name']} saved as ${row['Organization']}_${row['Name']}.svg`);
         })

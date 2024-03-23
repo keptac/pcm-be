@@ -64,3 +64,4 @@ typings/
 .env
 certs/
 .zip
+pcmVcards/

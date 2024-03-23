@@ -119,7 +119,7 @@ router.post('/webhook', async (req, res) => {
                 checkinStatus: 'NOT CHECKED IN'
             });
   
-            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
+            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
       
           }
   
@@ -133,12 +133,12 @@ router.post('/webhook', async (req, res) => {
   else{
 
       if (incomingMsg.toLowerCase() === 'hi'||incomingMsg.toLowerCase() === 'hello') {
-        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
+        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
       } else {
  
      if (user && !user.username) {
        await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
+       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
       } else {
          if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
            try {
@@ -150,7 +150,7 @@ router.post('/webhook', async (req, res) => {
              const cursorMale = roomsCollection.aggregate(aggGentsRooms);
              const availableMaleRooms = await cursorMale.toArray();
 
-             twiml.message("This option is coming soon.");
+             twiml.message("This option is closed at the moment. We will send communication when this option becomes available.");
 
           //   if(user.bookingStatus==="BOOKED"){
           //      twiml.message(`Hey ${user.username}, You selected a room (Number: ${user.selectedRoom}) already.`);
@@ -193,7 +193,7 @@ router.post('/webhook', async (req, res) => {
            try {
               const roomsCollection = db.collection('rooms');
               const roomNumber = incomingMsg;
-              const roomNumberParts = roomNumber.split('_');
+              const roomNumberParts = roomNumber.substring(roomNumber.length - 9).split('_');
 
                 if (roomNumberParts.length !== 3) {
                   twiml.message('Invalid room number. Enter room number from the list above in the format: H1_R000_G');
@@ -202,6 +202,13 @@ router.post('/webhook', async (req, res) => {
                 const hostel = roomNumberParts[0];
                 const room = roomNumberParts[1];
                 const floor = roomNumberParts[2];
+
+
+                
+                console.log("\n\n--------------")
+                console.log(sender);
+                console.log(roomNumberParts);
+                console.log("--------------\n\n")
 
 
                 const agg = user.gender==="M"?
@@ -305,6 +312,11 @@ router.post('/webhook', async (req, res) => {
                 const selectedRoom = await cursor.toArray();
                 
                 if (selectedRoom) {
+
+                  console.log("\n\n--------------")
+                  console.log(sender);
+                  console.log(selectedRoom[0]);
+                  console.log("--------------\n\n")
   
                   await roomsCollection.updateOne({
                     'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
@@ -335,7 +347,7 @@ router.post('/webhook', async (req, res) => {
              const selectedRoom = user.selectedRoom;
              await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'BOOKED'} });
              twiml.message(`Your booking for Room ${selectedRoom} has been confirmed.`);
-             twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Book a room\n2. Registration status\n3. Program outline`);
+             twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Book a room\n2. Registration status\n3. Program outline\n4. Check-in`);
  
            } else if (incomingMsg.toLowerCase() === 'no') {
              const selectedRoom = user.selectedRoom;
@@ -380,9 +392,47 @@ router.post('/webhook', async (req, res) => {
            twiml.message("Program outline not available yet.");
          } else if (incomingMsg.toLowerCase().replace("-","").includes('checkin') || incomingMsg.toLowerCase().includes('4')) {
           twiml.message("You need to first book a room.");
+        }else if (incomingMsg.toLowerCase().includes('music') ||incomingMsg.toLowerCase().includes('theme song')||incomingMsg.toLowerCase().includes('song') || incomingMsg.toLowerCase().includes('5')) {
+
+
+          const song = `
+            Written and Arranged by Delight Mandina
+
+            *Verse1:*
+            Into all the world we should go,
+            Preaching the gospel of the truth.
+            As the present day Waldenses,
+            With mission in our sight.
+            For the harvest is now ripen,
+            So send me, Lord, today.
+            As the ancient heroes, here I stand,
+            For without delay, I will go.
+
+            *Chorus*
+            Lord, make me Yours, 
+            Send me now today, 
+            As the present Waldense, 
+            I'll answer to the call.
+            Through valleys deep,
+            And mountains tall,
+            Even in opposition, 
+            I'll stand for the right, 
+            Never to fall.
+
+            *Verse 2*
+            In the world, my campus and workplace 
+            I will present you as you please
+            With the Holy Spirit leading
+            I will answer to the call.
+            Having faith as my compass, 
+            The world will know you this age.
+            As the ancient heroes here l stand 
+            Let your Spirit lead today
+            `
+          twiml.message(song);
         } else {
            twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in`);
+           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book a room\n3. Program outline\n4. Check-in\n5. Theme Song`);
       
          }
      }}
