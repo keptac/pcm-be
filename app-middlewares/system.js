@@ -16,8 +16,14 @@ const mongoClient = new MongoClient(mongoURL, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
+  maxPoolSize: 50, // Adjust as per your requirements
+  wtimeoutMS: 2500,
 });
+
+
+const dbPromise = mongoClient.connect().then(() => mongoClient.db('pcmmiscon'));
+
 
 
 const aggLadiesRooms = [
@@ -70,15 +76,15 @@ router.post('/webhook', async (req, res) => {
 
   const incomingMsg = req.body.Body || '';
   const sender = req.body.From.replace("whatsapp:+","") || '';
-
   const twiml = new MessagingResponse();
-
   console.log("received message from "+ sender);
 
 
   try {
-    await mongoClient.connect();
-    const db = mongoClient.db('pcmmiscon'); 
+    // await mongoClient.connect();
+    // const db = mongoClient.db('pcmmiscon'); 
+
+    const db = await dbPromise;
 
     const usersCollection = db.collection('users');
     let user = await usersCollection.findOne({ _id: sender });
@@ -458,25 +464,46 @@ router.post('/webhook', async (req, res) => {
 });
 
 
-// Function to search for a row with a particular value in the specified column
-async function searchRow(csvFilePath, columnName, searchValue, callback) {
-  const results = [];
+// // Function to search for a row with a particular value in the specified column
+// async function searchRow(csvFilePath, columnName, searchValue, callback) {
+//   const results = [];
   
-  fs.createReadStream(csvFilePath)
+//   fs.createReadStream(csvFilePath)
+//       .pipe(csv())
+//       .on('data', (data) => {
+//           // Check if the value in the specified column matches the search value
+//           if (data[columnName] === searchValue) {
+//               results.push(data);
+//           }
+          
+//       })
+//       .on('end', () => {
+//           callback(null, results);
+//       })
+//       .on('error', (error) => {
+//           callback(error);
+//       });
+// }
+
+
+async function searchRow(csvFilePath, columnName, searchValue) {
+  const results = [];
+
+  return new Promise((resolve, reject) => {
+    fs.createReadStream(csvFilePath)
       .pipe(csv())
       .on('data', (data) => {
-          // Check if the value in the specified column matches the search value
-          if (data[columnName] === searchValue) {
-              results.push(data);
-          }
-          
+        if (data[columnName] === searchValue) {
+          results.push(data);
+        }
       })
       .on('end', () => {
-          callback(null, results);
+        resolve(results);
       })
       .on('error', (error) => {
-          callback(error);
+        reject(error);
       });
+  });
 }
 
 
