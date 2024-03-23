@@ -18,6 +18,45 @@ function generateVCard(fields) {
     return vCardString;
 }
 
+router.get('/list', async(req,res)=>{
+    // Array to hold the objects
+let rooms = [];
+
+// List of room strings
+let roomList = [
+    "H1_R107_G",	"H1_R206_U",
+    "H1_R110_G",	"H1_R209_U",
+    "H1_R113_G",	"H1_R212_U",
+    "H1_R116_G",	"H1_R215_U"
+
+];
+
+// Iterate over each room string and create an object
+roomList.forEach(roomString => {
+    let parts = roomString.split('_');
+    let hostel = parts[0];
+    let roomNumber = parts[1];
+    let floor = parts[2];
+    let availableBeds = 4; // You may want to specify this value
+    let reservation = "Alumni";
+    
+    // Push the object into the array
+    rooms.push({
+        "hostel": hostel,
+        "roomNumber": roomNumber,
+        "floor": floor,
+        "availableBeds": availableBeds,
+        "reservation": reservation
+    });
+});
+
+// Print the array
+console.log(rooms);
+
+console.log(rooms.length)
+res.end()
+
+})
 
 router.get('/init-qr', async (req, res) => {
     const csvFilePath = path.join(__dirname, 'names.csv');
