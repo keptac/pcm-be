@@ -22,10 +22,6 @@ const mongoClient = new MongoClient(mongoURL, {
 });
 
 
-const dbPromise = mongoClient.connect().then(() => mongoClient.db('pcmmiscon'));
-
-
-
 const aggLadiesRooms = [
   {
     '$unwind': '$ladies_rooms.rooms'
@@ -73,18 +69,17 @@ const aggGentsRooms = [
 
 router.post('/webhook', async (req, res) => {
 
-
   const incomingMsg = req.body.Body || '';
   const sender = req.body.From.replace("whatsapp:+","") || '';
+
   const twiml = new MessagingResponse();
+
   console.log("received message from "+ sender);
 
 
   try {
-    // await mongoClient.connect();
-    // const db = mongoClient.db('pcmmiscon'); 
-
-    const db = await dbPromise;
+    await mongoClient.connect();
+    const db = mongoClient.db('pcmmiscon'); 
 
     const usersCollection = db.collection('users');
     let user = await usersCollection.findOne({ _id: sender });
@@ -210,7 +205,7 @@ router.post('/webhook', async (req, res) => {
                   twiml.message('Invalid room number. Enter room number from the list above in the format: H1_R000_G');
                 }else{
 
-                  console.log("Sender request rooms: "+ user.bookingStatus);
+                  console.log("Sender request: "+ user.bookingStatus);
 
                 const hostel = roomNumberParts[0];
                 const room = roomNumberParts[1];
@@ -451,6 +446,8 @@ router.post('/webhook', async (req, res) => {
      }}
     }
 
+    mongoClient.close();
+
   } catch (error) {
     console.error('Error:', error);
     twiml.message(`Oops! Something went wrong. Please try again later.`);
@@ -464,46 +461,25 @@ router.post('/webhook', async (req, res) => {
 });
 
 
-// // Function to search for a row with a particular value in the specified column
-// async function searchRow(csvFilePath, columnName, searchValue, callback) {
-//   const results = [];
-  
-//   fs.createReadStream(csvFilePath)
-//       .pipe(csv())
-//       .on('data', (data) => {
-//           // Check if the value in the specified column matches the search value
-//           if (data[columnName] === searchValue) {
-//               results.push(data);
-//           }
-          
-//       })
-//       .on('end', () => {
-//           callback(null, results);
-//       })
-//       .on('error', (error) => {
-//           callback(error);
-//       });
-// }
-
-
-async function searchRow(csvFilePath, columnName, searchValue) {
+// Function to search for a row with a particular value in the specified column
+async function searchRow(csvFilePath, columnName, searchValue, callback) {
   const results = [];
-
-  return new Promise((resolve, reject) => {
-    fs.createReadStream(csvFilePath)
+  
+  fs.createReadStream(csvFilePath)
       .pipe(csv())
       .on('data', (data) => {
-        if (data[columnName] === searchValue) {
-          results.push(data);
-        }
+          // Check if the value in the specified column matches the search value
+          if (data[columnName] === searchValue) {
+              results.push(data);
+          }
+          
       })
       .on('end', () => {
-        resolve(results);
+          callback(null, results);
       })
       .on('error', (error) => {
-        reject(error);
+          callback(error);
       });
-  });
 }
 
 
