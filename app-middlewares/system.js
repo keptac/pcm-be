@@ -76,7 +76,6 @@ router.post('/webhook', async (req, res) => {
 
   console.log("received message from "+ sender);
 
-
   try {
     await mongoClient.connect();
     const db = mongoClient.db('pcmmiscon'); 
@@ -446,6 +445,7 @@ router.post('/webhook', async (req, res) => {
      }}
     }
 
+    console.log("DB Connection closed");
     mongoClient.close();
 
   } catch (error) {
@@ -462,24 +462,24 @@ router.post('/webhook', async (req, res) => {
 
 
 // Function to search for a row with a particular value in the specified column
-async function searchRow(csvFilePath, columnName, searchValue, callback) {
+async function searchRow(csvFilePath, columnName, searchValue) {
   const results = [];
-  
-  fs.createReadStream(csvFilePath)
+
+  return new Promise((resolve, reject) => {
+    fs.createReadStream(csvFilePath)
       .pipe(csv())
       .on('data', (data) => {
-          // Check if the value in the specified column matches the search value
-          if (data[columnName] === searchValue) {
-              results.push(data);
-          }
-          
+        if (data[columnName] === searchValue) {
+          results.push(data);
+        }
       })
       .on('end', () => {
-          callback(null, results);
+        resolve(results);
       })
       .on('error', (error) => {
-          callback(error);
+        reject(error);
       });
+  });
 }
 
 
