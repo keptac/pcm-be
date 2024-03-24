@@ -445,10 +445,14 @@ router.post('/webhook', async (req, res) => {
  
           const thirdPartyNumber = incomingMsg.substring(incomingMsg.replace(" ","").length - 9);
 
+          console.log(thirdPartyNumber +"Checking for user on their behalf")
+
             
           try {
             const userData = await usersCollection.findOne({ _id: thirdPartyNumber });
             if (userData) {
+
+              console.log(userData +"Checking for user on their behalf")
 
              let twilioMessage = `*Name:* ${userData.username}\n`;
                  twilioMessage += `*Gender:* ${userData.gender}\n`;
@@ -519,7 +523,7 @@ router.post('/webhook', async (req, res) => {
                   }
             }
           } catch (error) {
-            console.error('Error retrieving user registration details:', error);
+            console.error('Error retrieving 3rd party user registration details:', error);
             twiml.message(`Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.`);
           }
         }else {
