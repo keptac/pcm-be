@@ -192,7 +192,7 @@ router.post('/webhook', async (req, res) => {
         }
         else{
 
-            if (incomingMsg.toLowerCase().contains('hi')||incomingMsg.toLowerCase() === 'hello') {
+            if (incomingMsg.toLowerCase().includes('hi')||incomingMsg.toLowerCase() === 'hello') {
               twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
             } else {
 
