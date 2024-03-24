@@ -146,7 +146,7 @@ router.post('/webhook', async (req, res) => {
        await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
       } else {
-         if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
+        if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
            try {
             const roomsCollection = db.collection('rooms');
 
@@ -199,7 +199,7 @@ router.post('/webhook', async (req, res) => {
              console.error('Error retrieving available rooms:', error);
              twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
            }
-         } else if (user.bookingStatus === 'selecting_room') {
+        } else if (user.bookingStatus === 'selecting_room') {
            try {
               const roomsCollection = db.collection('rooms');
               const roomNumber = incomingMsg;
@@ -354,7 +354,7 @@ router.post('/webhook', async (req, res) => {
              console.error('Error selecting room:', error);
              twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
            }
-         } else if (user.bookingStatus === 'room_selected') {
+        } else if (user.bookingStatus === 'room_selected') {
            if (incomingMsg.toLowerCase() === 'yes') {
              const selectedRoom = user.selectedRoom;
              await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'BOOKED'} });
@@ -372,7 +372,7 @@ router.post('/webhook', async (req, res) => {
            } else {
              twiml.message(`Please reply with 'yes' to confirm your booking or 'no' to cancel.`);
            }
-         } else if (incomingMsg.toLowerCase().includes('registration status')||incomingMsg.toLowerCase().includes('1')) {
+        } else if (incomingMsg.toLowerCase().includes('registration status')||incomingMsg.toLowerCase() ==='1') {
            // Handle registration status request
            try {
              const userData = await usersCollection.findOne({ _id: sender });
@@ -398,9 +398,9 @@ router.post('/webhook', async (req, res) => {
              console.error('Error retrieving user registration details:', error);
              twiml.message(`Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.`);
            }
-         } else if (incomingMsg.toLowerCase().includes('program outline')||incomingMsg.toLowerCase().includes('3')) {
+        } else if (incomingMsg.toLowerCase().includes('program outline')||incomingMsg.toLowerCase() === '3') {
            twiml.message("Program outline not available yet.");
-         } else if (incomingMsg.toLowerCase().includes('music') ||incomingMsg.toLowerCase().includes('theme song')||incomingMsg.toLowerCase().includes('song') || incomingMsg.toLowerCase().includes('4')) {
+        } else if (incomingMsg.toLowerCase().includes('music') ||incomingMsg.toLowerCase().includes('theme song')||incomingMsg.toLowerCase().includes('song') || incomingMsg.toLowerCase() === '4') {
 
           const song = `
             Written and Arranged by Delight Mandina
@@ -438,138 +438,16 @@ router.post('/webhook', async (req, res) => {
             `
           twiml.message(song);
         }
-
-
-
-
-
-
-
-
-
-        else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase().includes('5')) {
+        else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase() === '5') {
           await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '3rd_party_verification' } });
           twiml.message("Please enter their phone number in the format: 0771 000 000");
         }
-        
-        
-        
-        
-        
-        
-        
-        else if (user.chatStatus === '3rd_party_verification') {
-
-
-
-
-          const thirdPartyNumber = incomingMsg.substring(incomingMsg.replace(" ","").length - 9);
-
-            
-          try {
-            const userData = await usersCollection.findOne({ _id: thirdPartyNumber });
-            if (userData) {
-
-             let twilioMessage = `*Name:* ${userData.username}\n`;
-                 twilioMessage += `*Gender:* ${userData.gender}\n`;
-                 twilioMessage += `*Designation:* ${userData.title}\n`;
-                 twilioMessage += `*Email:* ${userData.email ? userData.email : '*(No email provided)*'}\n\n`;
-                 twilioMessage += `*Sessions:*\n\n - ${userData.sessions.replace(/, /g, '\n- ')}\n\n`;
-                 twilioMessage += `*Institute:* ${userData.institute}\n`;
-                 twilioMessage += `*Registration Status:* ${userData.registrationStatus}\n`;
-                 twilioMessage += `*Booked Room:* ${userData.selectedRoom}\n`;
-                 twilioMessage += `*Check In Status:* ${userData.checkinStatus}\n`;
-
-             // userMap = userData
-              twiml.message(`Your friend's registration details:\n\n${twilioMessage}`);
-
-              await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '' } });
-            } else {
-
-              let registeredUser;
-  
-  
-                  const results = await new Promise((resolve, reject) => {
-        
-                    console.log("finding attendeee"+ csvFilePath+":"+thirdPartyNumber)
-                        searchRow(csvFilePath, columnName, thirdPartyNumber, (error, results) => {
-                          if (error) {
-                              console.error('Error Occurred:', error);
-                              reject(error);
-                          } else {
-                              console.log("Sender request result: "+ results);
-                              resolve(results);
-                          }
-                      });
-                  });
-          
-                  if (results.length === 0) {
-                      console.log("Sender registration not found: "+ thirdPartyNumber);
-                      twiml.message("We could not find your friend's registration record 🥺. Please contact your Association president for verification if you registered.");
-                  } else {
-                      console.log("Found registered user:", results[0]);
-                      registeredUser = results[0];
-        
-                      await usersCollection.insertOne({
-                        _id: sender, 
-                        username: registeredUser.Name, 
-                        gender:registeredUser.Gender,
-                        title: registeredUser.Title,
-                        email: registeredUser.Email,
-                        sessions: registeredUser.Note,
-                        institute: registeredUser.Organization,
-                        registrationStatus: 'REGISTERED',
-                        bookingStatus: '', 
-                        selectedRoom: 'NONE',
-                        checkinStatus: 'NOT CHECKED IN'
-                    });
-
-                    let twilioMessage = `*Name:* ${registeredUser.Name}\n`;
-                        twilioMessage += `*Gender:* ${registeredUser.Gender}\n`;
-                        twilioMessage += `*Designation:* ${registeredUser.Title}\n`;
-                        twilioMessage += `*Email:* ${registeredUser.Email ? registeredUser.Email : '*(No email provided)*'}\n\n`;
-                        twilioMessage += `*Institute:* ${registeredUser.Organization}\n`;
-                        twilioMessage += `*Registration Status:* REGISTERED\n`;
-                        twilioMessage += `*Booked Room:* NONE\n`;
-                        twilioMessage += `*Check In Status:* NOT CHECKED IN\n`;
-
-             // userMap = userData
-              twiml.message(`Your friend's registration details:\n\n${twilioMessage}`);
-          
-                  }
-            }
-          } catch (error) {
-            console.error('Error retrieving user registration details:', error);
-            twiml.message(`Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.`);
-          }
-        }
-        
-        
-
-
-
-
-
-
-
-
-
-
-
         else {
-           twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
-      
-         }
-     }}
-    }
-
- 
-
-
-
-
-
+          twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
+          twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
+        }
+    }}
+  }
   } catch (error) {
     console.error('Error:', error);
     twiml.message(`We are experiencing large number of requests at this moment. Please try again in a moment 🙏🏽.`);
@@ -582,7 +460,6 @@ router.post('/webhook', async (req, res) => {
   res.end(twiml.toString());
 
 });
-
 
 // Function to search for a row with a particular value in the specified column
 async function searchRow(csvFilePath, columnName, searchValue, callback) {
@@ -604,6 +481,5 @@ async function searchRow(csvFilePath, columnName, searchValue, callback) {
           callback(error);
       });
 }
-
 
 module.exports = router;
