@@ -87,13 +87,12 @@ router.post('/webhook', async (req, res) => {
 
     let userTshirtOrder = await tshirtsCollection.findOne({ _id: sender });
 
-
     if (incomingMsg.toLowerCase().includes('hi')||incomingMsg.toLowerCase() === 'hello') {
 
-      user===true?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`)
+      user?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`)
       : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
     } else{
-        if(incomingMsg.length()>5 && userTshirtOrder && userTshirtOrder.orderStatus==="order_started"){
+        if( userTshirtOrder && userTshirtOrder.orderStatus==="order_started" && incomingMsg.length>5){
 
           await tshirtsCollection.updateOne({ _id: sender }, { $set: { order:incomingMsg, orderStatus: 'order_completed' } });
           twiml.message(`Order was successfully placed. We are now processing your order.`);
@@ -114,7 +113,7 @@ router.post('/webhook', async (req, res) => {
               
               We have the below options available:
 
-              *Tshirts:*
+              *Tshirts (Golf, Regular):*
                 Light Blue
                 Navy Blue
                 Charcoal Grey
