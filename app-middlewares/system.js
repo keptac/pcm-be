@@ -437,12 +437,92 @@ router.post('/webhook', async (req, res) => {
             Let your Spirit lead today
             `
           twiml.message(song);
-        }
-        else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase() === '5') {
+        } else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase() === '5') {
           await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '3rd_party_verification' } });
           twiml.message("Please enter their phone number in the format: 0771 000 000");
-        }
-        else {
+        } else if (user.chatStatus === '3rd_party_verification') {
+ 
+ 
+          const thirdPartyNumber = incomingMsg.substring(incomingMsg.replace(" ","").length - 9);
+
+            
+          try {
+            const userData = await usersCollection.findOne({ _id: thirdPartyNumber });
+            if (userData) {
+
+             let twilioMessage = `*Name:* ${userData.username}\n`;
+                 twilioMessage += `*Gender:* ${userData.gender}\n`;
+                 twilioMessage += `*Designation:* ${userData.title}\n`;
+                 twilioMessage += `*Email:* ${userData.email ? userData.email : '*(No email provided)*'}\n\n`;
+                 twilioMessage += `*Sessions:*\n\n - ${userData.sessions.replace(/, /g, '\n- ')}\n\n`;
+                 twilioMessage += `*Institute:* ${userData.institute}\n`;
+                 twilioMessage += `*Registration Status:* ${userData.registrationStatus}\n`;
+                 twilioMessage += `*Booked Room:* ${userData.selectedRoom}\n`;
+                 twilioMessage += `*Check In Status:* ${userData.checkinStatus}\n`;
+
+             // userMap = userData
+              twiml.message(`Your friend's registration details:\n\n${twilioMessage}`);
+
+              await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '' } });
+            } else {
+
+              let registeredUser;
+  
+  
+                  const results = await new Promise((resolve, reject) => {
+        
+                    console.log("finding attendeee"+ csvFilePath+":"+thirdPartyNumber)
+                        searchRow(csvFilePath, columnName, thirdPartyNumber, (error, results) => {
+                          if (error) {
+                              console.error('Error Occurred:', error);
+                              reject(error);
+                          } else {
+                              console.log("Sender request result: "+ results);
+                              resolve(results);
+                          }
+                      });
+                  });
+          
+                  if (results.length === 0) {
+                      console.log("Sender registration not found: "+ thirdPartyNumber);
+                      twiml.message("We could not find your friend's registration record 🥺. Please contact your Association president for verification if you registered.");
+                  } else {
+                      console.log("Found registered user:", results[0]);
+                      registeredUser = results[0];
+        
+                      await usersCollection.insertOne({
+                        _id: sender, 
+                        username: registeredUser.Name, 
+                        gender:registeredUser.Gender,
+                        title: registeredUser.Title,
+                        email: registeredUser.Email,
+                        sessions: registeredUser.Note,
+                        institute: registeredUser.Organization,
+                        registrationStatus: 'REGISTERED',
+                        bookingStatus: '', 
+                        selectedRoom: 'NONE',
+                        checkinStatus: 'NOT CHECKED IN'
+                    });
+
+                    let twilioMessage = `*Name:* ${registeredUser.Name}\n`;
+                        twilioMessage += `*Gender:* ${registeredUser.Gender}\n`;
+                        twilioMessage += `*Designation:* ${registeredUser.Title}\n`;
+                        twilioMessage += `*Email:* ${registeredUser.Email ? registeredUser.Email : '*(No email provided)*'}\n\n`;
+                        twilioMessage += `*Institute:* ${registeredUser.Organization}\n`;
+                        twilioMessage += `*Registration Status:* REGISTERED\n`;
+                        twilioMessage += `*Booked Room:* NONE\n`;
+                        twilioMessage += `*Check In Status:* NOT CHECKED IN\n`;
+
+             // userMap = userData
+              twiml.message(`Your friend's registration details:\n\n${twilioMessage}`);
+          
+                  }
+            }
+          } catch (error) {
+            console.error('Error retrieving user registration details:', error);
+            twiml.message(`Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.`);
+          }
+        }else {
           twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
           twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
         }
