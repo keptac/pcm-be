@@ -87,9 +87,13 @@ router.post('/webhook', async (req, res) => {
 
     let userTshirtOrder = await tshirtsCollection.findOne({ _id: sender });
 
-      twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n`);
 
-        if(userTshirtOrder && userTshirtOrder.orderStatus==="order_started"){
+    if (incomingMsg.toLowerCase().includes('hi')||incomingMsg.toLowerCase() === 'hello') {
+
+      user===true?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`)
+      : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
+    } else{
+        if(incomingMsg.length()>5 && userTshirtOrder && userTshirtOrder.orderStatus==="order_started"){
 
           await tshirtsCollection.updateOne({ _id: sender }, { $set: { order:incomingMsg, orderStatus: 'order_completed' } });
           twiml.message(`Order was successfully placed. We are now processing your order.`);
@@ -191,10 +195,6 @@ router.post('/webhook', async (req, res) => {
           }
         }
         else{
-
-            if (incomingMsg.toLowerCase().includes('hi')||incomingMsg.toLowerCase() === 'hello') {
-              twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
-            } else {
 
           if (user && !user.username) {
             await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
@@ -575,9 +575,10 @@ router.post('/webhook', async (req, res) => {
                 twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
                 twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
               }
-          }}
+          }
         }
     }
+  }
   } catch (error) {
     console.error('Error:', error);
     twiml.message(`We are experiencing large number of requests at this moment. Please try again in a moment 🙏🏽.`);
