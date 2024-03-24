@@ -441,15 +441,12 @@ router.post('/webhook', async (req, res) => {
           await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '3rd_party_verification' } });
           twiml.message("Please enter their phone number in the format: 0771 000 000");
         } else if (user.chatStatus === '3rd_party_verification') {
- 
- 
           const thirdPartyNumber = incomingMsg.substring(incomingMsg.replace(" ","").length - 9);
 
           console.log(thirdPartyNumber +"Checking for user on their behalf")
 
-            
           try {
-            const userData = await usersCollection.findOne({ _id: thirdPartyNumber });
+            const userData = await usersCollection.findOne({ _id: "263"+thirdPartyNumber });
             if (userData) {
 
               console.log(userData +"Checking for user on their behalf")
@@ -492,7 +489,7 @@ router.post('/webhook', async (req, res) => {
                       registeredUser = results[0];
         
                       await usersCollection.insertOne({
-                        _id: sender, 
+                        _id: "263"+thirdPartyNumber, 
                         username: registeredUser.Name, 
                         gender:registeredUser.Gender,
                         title: registeredUser.Title,
