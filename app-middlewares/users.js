@@ -165,13 +165,13 @@ router.post('/checkin', async (req, res) => {
   }
   else{
     try {
-        await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
+        await usersCollection.updateOne({ _id: sender }, { $set: {  checkinStatus: 'CHECKED IN' } });
 
         res.status(200).send({
           'success': true,
-          'message': registeredUser.Name+' checkin in successful.',
+          'message': user.username+' checkin in successful.',
           'responseBody': {
-            'message': registeredUser.Name+' checkin in successful. Room number '+registeredUser.Room,
+            'message': user.username+' checkin in successful. Room number '+ user.selectedRoom,
           }
         });
         res.end();
