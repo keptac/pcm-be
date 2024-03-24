@@ -92,14 +92,17 @@ router.post('/webhook', async (req, res) => {
         if(userTshirtOrder && userTshirtOrder.orderStatus==="order_started"){
 
           await tshirtsCollection.updateOne({ _id: sender }, { $set: { order:incomingMsg, orderStatus: 'order_completed' } });
-          
+          twiml.message(`Order was successfully placed. We are now processing your order.`);
+
         }else if (incomingMsg.toLowerCase().replace("-","") === 'tshirt' || incomingMsg.toLowerCase() === '6') {
 
           if(userTshirtOrder && userTshirtOrder.orderStatus==="order_completed"){
             twiml.message('You have already ordered a Tshirt. Here is your order: '+ userTshirtOrder.order);
+            twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n`);
+
           }else{
             twiml.message(`
-              Please place your order in the format: SIZE, QUANTITY, TYPE
+              Welcome to ZEUC PCM Miscon Shop. Please place your order in the format: SIZE, QUANTITY, TYPE
               *For example: Small, 1, Golf*
               
               We have the below options available:
