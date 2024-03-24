@@ -132,7 +132,7 @@ router.post('/webhook', async (req, res) => {
 
           }
 
-        }else if (incomingMsg.toLowerCase().replace("-","").contains('order') || incomingMsg.toLowerCase().replace("-","").includes('tshirt') || incomingMsg.toLowerCase().replace("-","").includes('hood')||incomingMsg.toLowerCase() === '6') {
+        }else if (incomingMsg.toLowerCase().replace("-","").includes('order') || incomingMsg.toLowerCase().replace("-","").includes('tshirt') || incomingMsg.toLowerCase().replace("-","").includes('hood')||incomingMsg.toLowerCase() === '6') {
 
           if(userTshirtOrder && userTshirtOrder.orderStatus==="order_completed"){
             twiml.message('You have already ordered a Tshirt. Here is your order: '+ userTshirtOrder.order);
