@@ -471,12 +471,9 @@ router.post('/webhook', async (req, res) => {
             } else {
 
               let registeredUser;
-  
-  
                   const results = await new Promise((resolve, reject) => {
-        
                     console.log("finding attendeee"+ csvFilePath+":"+thirdPartyNumber)
-                        searchRow(csvFilePath, columnName, thirdPartyNumber, (error, results) => {
+                        searchRow(csvFilePath, 'Phone', thirdPartyNumber, (error, results) => {
                           if (error) {
                               console.error('Error Occurred:', error);
                               reject(error);
