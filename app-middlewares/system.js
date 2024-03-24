@@ -439,7 +439,7 @@ router.post('/webhook', async (req, res) => {
           twiml.message(song);
         } else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase().includes('check for someone') || incomingMsg.toLowerCase() === '5') {
           await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '3rd_party_verification' } });
-          twiml.message("Please enter their phone number in the format: 0771 000 000");
+          twiml.message("Please enter their phone number in the format: 0771000000");
         } else if (user.chatStatus === '3rd_party_verification') {
           const thirdPartyNumber = incomingMsg.replace(" ","").substring(incomingMsg.replace(" ","").length - 9);
           try {
@@ -461,7 +461,7 @@ router.post('/webhook', async (req, res) => {
              // userMap = userData
               twiml.message(`Your friend's registration details:\n\n${twilioMessage}`);
 
-              await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '' } });
+              await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '0' } });
             } else {
 
               let registeredUser;
