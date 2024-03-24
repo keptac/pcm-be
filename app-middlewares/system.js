@@ -89,10 +89,12 @@ router.post('/webhook', async (req, res) => {
 
     if (incomingMsg.toLowerCase().includes('hi')||incomingMsg.toLowerCase() === 'hello') {
 
-      user?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`)
-      : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
+      user?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`)
+      : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
     } else{
         if( userTshirtOrder && userTshirtOrder.orderStatus==="order_started"){
+
+          console.log(sender+" ordering tshirt started")
 
           if(incomingMsg.length>5){
             await tshirtsCollection.updateOne({ _id: sender }, { $set: { order:incomingMsg, orderStatus: 'order_completed' } });
@@ -130,13 +132,11 @@ router.post('/webhook', async (req, res) => {
 
           }
 
-
-
-        }else if (incomingMsg.toLowerCase().replace("-","") === 'order' || incomingMsg.toLowerCase().replace("-","") === 'tshirt' || incomingMsg.toLowerCase().replace("-","") === 'hood'||incomingMsg.toLowerCase() === '6') {
+        }else if (incomingMsg.toLowerCase().replace("-","").contains('order') || incomingMsg.toLowerCase().replace("-","").includes('tshirt') || incomingMsg.toLowerCase().replace("-","").includes('hood')||incomingMsg.toLowerCase() === '6') {
 
           if(userTshirtOrder && userTshirtOrder.orderStatus==="order_completed"){
             twiml.message('You have already ordered a Tshirt. Here is your order: '+ userTshirtOrder.order);
-            twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
+            twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
 
           }else{
             twiml.message(`
@@ -220,7 +220,7 @@ router.post('/webhook', async (req, res) => {
                     checkinStatus: 'NOT CHECKED IN'
                 });
       
-                twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
+                twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
           
               }
       
@@ -235,7 +235,7 @@ router.post('/webhook', async (req, res) => {
 
           if (user && !user.username) {
             await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-            twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
+            twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
             } else {
               if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
                 try {
@@ -610,7 +610,7 @@ router.post('/webhook', async (req, res) => {
                 }
               }else {
                 twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-                twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
+                twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
               }
           }
         }
