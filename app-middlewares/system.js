@@ -89,8 +89,8 @@ router.post('/webhook', async (req, res) => {
 
     if (incomingMsg.toLowerCase().includes('hi')||incomingMsg.toLowerCase() === 'hello') {
 
-      user?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`)
-      : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
+      user?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`)
+      : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
     } else{
         if( userTshirtOrder && userTshirtOrder.orderStatus==="order_started"){
 
@@ -136,7 +136,7 @@ router.post('/webhook', async (req, res) => {
 
           if(userTshirtOrder && userTshirtOrder.orderStatus==="order_completed"){
             twiml.message('You have already ordered a Tshirt. Here is your order: '+ userTshirtOrder.order);
-            twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n`);
+            twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
 
           }else{
             twiml.message(`
@@ -220,7 +220,7 @@ router.post('/webhook', async (req, res) => {
                     checkinStatus: 'NOT CHECKED IN'
                 });
       
-                twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
+                twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
           
               }
       
@@ -235,7 +235,7 @@ router.post('/webhook', async (req, res) => {
 
           if (user && !user.username) {
             await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-            twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
+            twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
             } else {
               if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
                 try {
@@ -610,7 +610,7 @@ router.post('/webhook', async (req, res) => {
                 }
               }else {
                 twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-                twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
+                twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. Order T-Shirt`);
               }
           }
         }
