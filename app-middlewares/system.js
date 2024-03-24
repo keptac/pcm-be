@@ -125,7 +125,7 @@ router.post('/webhook', async (req, res) => {
                 checkinStatus: 'NOT CHECKED IN'
             });
   
-            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
+            twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
       
           }
   
@@ -139,12 +139,12 @@ router.post('/webhook', async (req, res) => {
   else{
 
       if (incomingMsg.toLowerCase() === 'hi'||incomingMsg.toLowerCase() === 'hello') {
-        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
+        twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
       } else {
- 
+
      if (user && !user.username) {
        await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
+       twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
       } else {
         if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
            try {
@@ -437,14 +437,11 @@ router.post('/webhook', async (req, res) => {
             Let your Spirit lead today
             `
           twiml.message(song);
-        } else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase() === '5') {
+        } else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase().includes('check for someone') || incomingMsg.toLowerCase() === '5') {
           await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '3rd_party_verification' } });
           twiml.message("Please enter their phone number in the format: 0771 000 000");
         } else if (user.chatStatus === '3rd_party_verification') {
           const thirdPartyNumber = incomingMsg.substring(incomingMsg.replace(" ","").length - 9);
-
-          console.log(thirdPartyNumber +"Checking for user on their behalf")
-
           try {
             const userData = await usersCollection.findOne({ _id: "263"+thirdPartyNumber });
             if (userData) {
@@ -514,15 +511,15 @@ router.post('/webhook', async (req, res) => {
              // userMap = userData
               twiml.message(`Your friend's registration details:\n\n${twilioMessage}`);
           
-                  }
+            }
             }
           } catch (error) {
             console.error('Error retrieving 3rd party user registration details:', error);
-            twiml.message(`Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.`);
+            twiml.message(`Something went wrong, Please try again later.`);
           }
         }else {
           twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-          twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song`);
+          twiml.message(`Hello  ${user.username || 'Guest'}. Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone`);
         }
     }}
   }
