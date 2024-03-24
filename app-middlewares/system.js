@@ -94,7 +94,7 @@ router.post('/webhook', async (req, res) => {
           await tshirtsCollection.updateOne({ _id: sender }, { $set: { order:incomingMsg, orderStatus: 'order_completed' } });
           twiml.message(`Order was successfully placed. We are now processing your order.`);
 
-        }else if (incomingMsg.toLowerCase().replace("-","") === 'tshirt' || incomingMsg.toLowerCase() === '6') {
+        }else if (incomingMsg.toLowerCase().replace("-","") === 'order' || incomingMsg.toLowerCase().replace("-","") === 'tshirt' || incomingMsg.toLowerCase().replace("-","") === 'hood'||incomingMsg.toLowerCase() === '6') {
 
           if(userTshirtOrder && userTshirtOrder.orderStatus==="order_completed"){
             twiml.message('You have already ordered a Tshirt. Here is your order: '+ userTshirtOrder.order);
@@ -102,12 +102,31 @@ router.post('/webhook', async (req, res) => {
 
           }else{
             twiml.message(`
-              Welcome to ZEUC PCM Miscon Shop. Please place your order in the format: SIZE, QUANTITY, TYPE
-              *For example: Small, 1, Golf*
+             *Welcome to ZEUC PCM Miscon Shop.* 
+              
+              Please place your order in the format: SIZE, QUANTITY, TYPE, COLOR
+
+              *For example: Small, 1, Golf, White*
               
               We have the below options available:
+
+              *Tshirts:*
+                Light Blue
+                Navy Blue
+                Charcoal Grey
+                Dark Grey
+                Black
+                White
+                Pink
+              
+              *Hoodies:*
+                White 
+                Grey 
+                Navy Blue
+                Black
+              
               Sizes: *S, M, L*
-              Colors: *Red, Blue, White, Black*`);
+              `);
 
             await tshirtsCollection.insertOne({
               _id: sender, 
