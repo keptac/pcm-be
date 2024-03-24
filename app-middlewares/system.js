@@ -374,8 +374,6 @@ router.post('/webhook', async (req, res) => {
            }
          } else if (incomingMsg.toLowerCase().includes('registration status')||incomingMsg.toLowerCase().includes('1')) {
            // Handle registration status request
-
-
            try {
              const userData = await usersCollection.findOne({ _id: sender });
              if (userData) {
@@ -402,10 +400,7 @@ router.post('/webhook', async (req, res) => {
            }
          } else if (incomingMsg.toLowerCase().includes('program outline')||incomingMsg.toLowerCase().includes('3')) {
            twiml.message("Program outline not available yet.");
-         } else if (incomingMsg.toLowerCase().replace("-","").includes('checkin') || incomingMsg.toLowerCase().includes('4')) {
-          twiml.message("You need to first book a room.");
-        }else if (incomingMsg.toLowerCase().includes('music') ||incomingMsg.toLowerCase().includes('theme song')||incomingMsg.toLowerCase().includes('song') || incomingMsg.toLowerCase().includes('5')) {
-
+         } else if (incomingMsg.toLowerCase().includes('music') ||incomingMsg.toLowerCase().includes('theme song')||incomingMsg.toLowerCase().includes('song') || incomingMsg.toLowerCase().includes('4')) {
 
           const song = `
             Written and Arranged by Delight Mandina
