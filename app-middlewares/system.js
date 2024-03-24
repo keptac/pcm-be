@@ -441,7 +441,7 @@ router.post('/webhook', async (req, res) => {
           await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '3rd_party_verification' } });
           twiml.message("Please enter their phone number in the format: 0771 000 000");
         } else if (user.chatStatus === '3rd_party_verification') {
-          const thirdPartyNumber = incomingMsg.substring(incomingMsg.replace(" ","").length - 9);
+          const thirdPartyNumber = incomingMsg.replace(" ","").substring(incomingMsg.replace(" ","").length - 9);
           try {
             const userData = await usersCollection.findOne({ _id: "263"+thirdPartyNumber });
             if (userData) {
