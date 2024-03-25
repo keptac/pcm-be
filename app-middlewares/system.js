@@ -129,7 +129,6 @@ router.post('/webhook', async (req, res) => {
                 Sizes: *S, M, L*
             `);
 
-
           }
 
         }else if (incomingMsg.toLowerCase().replace("-","").includes('order') || incomingMsg.toLowerCase().replace("-","").includes('tshirt') || incomingMsg.toLowerCase().replace("-","").includes('hood')||incomingMsg.toLowerCase() === '6') {
