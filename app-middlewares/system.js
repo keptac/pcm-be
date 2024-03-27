@@ -579,30 +579,18 @@ router.post('/webhook', async (req, res) => {
 
                           console.log(selectedRoom[0]);
 
-                          await roomsCollection.updateOne({
-                            'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
-                            'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
-                            'ladies_rooms.rooms.floor': selectedRoom[0].floor,
-                            'ladies_rooms.rooms.reservation': selectedRoom[0].reservation,
-                            'ladies_rooms.rooms.availableBeds': { $gt: 0 }
-                        }, {
+                          await roomsCollection.updateOne(selectedRoom[0], {
                             $inc: {
-                                'ladies_rooms.rooms.$.availableBeds': -1
+                                'availableBeds': -1
                             }
                         });
 
                         }else{
                           console.log("deducting M")
 
-                          await roomsCollection.updateOne({
-                            'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
-                            'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
-                            'gents_rooms.rooms.floor': selectedRoom[0].floor,
-                            'gents_rooms.rooms.reservation': selectedRoom[0].reservation,
-                            'gents_rooms.rooms.availableBeds': { $gt: 0 }
-                          }, {
+                          await roomsCollection.updateOne(selectedRoom[0], {
                             $inc: {
-                              'gents_rooms.rooms.$.availableBeds': -1
+                              'availableBeds': -1
                             }
                           });
                         }
