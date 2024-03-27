@@ -581,15 +581,16 @@ router.post('/webhook', async (req, res) => {
                         const updateQuery = user.gender === "F" ? {
                             'ladies_rooms.rooms.hostel': roomToUpdate.hostel,
                             'ladies_rooms.rooms.roomNumber': roomToUpdate.roomNumber,
-                            'ladies_rooms.rooms.floor': roomToUpdate.floor
-                            // 'ladies_rooms.rooms.availableBeds': { $gt: 0 },
-                            // 'ladies_rooms.rooms.reservation': roomToUpdate.reservation,
+                            'ladies_rooms.rooms.floor': roomToUpdate.floor,
+                            'ladies_rooms.rooms.reservation': roomToUpdate.reservation,
+                            'ladies_rooms.rooms.availableBeds': { $gt: 0 }
                         } : {
                             'gents_rooms.rooms.hostel': roomToUpdate.hostel,
                             'gents_rooms.rooms.roomNumber': roomToUpdate.roomNumber,
-                            'gents_rooms.rooms.floor': roomToUpdate.floor
-                            // 'gents_rooms.rooms.availableBeds': { $gt: 0 },
-                            // 'gents_rooms.rooms.reservation': roomToUpdate.reservation,
+                            'gents_rooms.rooms.floor': roomToUpdate.floor,
+                            
+                            'gents_rooms.rooms.reservation': roomToUpdate.reservation,
+                            'gents_rooms.rooms.availableBeds': { $gt: 0 }
                         };
                 
                         const updateField = user.gender === "F" ? 'ladies_rooms.rooms.availableBeds' : 'gents_rooms.rooms.availableBeds';
