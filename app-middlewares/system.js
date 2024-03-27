@@ -605,7 +605,7 @@ router.post('/webhook', async (req, res) => {
 
                         }else{
 
-                        await roomsCollection.updateOne({
+                       const results = await roomsCollection.updateOne({
                             'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'gents_rooms.rooms.floor': selectedRoom[0].floor,
@@ -618,6 +618,9 @@ router.post('/webhook', async (req, res) => {
                             usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
                             twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
                           });
+
+                          console.log(results);
+                          console.log("---------");
                         }
         
         
