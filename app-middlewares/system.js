@@ -667,15 +667,6 @@ router.post('/webhook', async (req, res) => {
                   const cursorMale = roomsCollection.aggregate(aggGentsRooms);
                   const availableMaleRooms = await cursorMale.toArray();
 
-                  console.log("\n\n\n------------------------------------------------")
-                  console.log("Sender request room: "+ incomingMsg);
-
-                  console.log("Male ROOMS : "+ incomingMsg);
-                  console.log(availableMaleRooms)
-
-                  console.log("Female ROOMS : "+ incomingMsg);
-                  console.log(availableLadiesRooms)
-
                   
                   if(user.bookingStatus==="BOOKED"){
                     twiml.message(`Hey ${user.username}, You have already selected/been allocated a room.\n\n*Number: ${user.selectedRoom}*.`);
@@ -689,11 +680,16 @@ router.post('/webhook', async (req, res) => {
                 
                       let roomOptions = `Available ${user.title} Gents Hostels:\n`;
 
-                
+                      var characterCount =0
+
                       availableMaleRooms.forEach(room => {
                         if(user.title.toLowerCase()=='student'){
                           if(room.reservation.toLowerCase() =='student'){
-                            roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+
+                            if(characterCount<1590){
+                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                              characterCount += roomOptions.length
+                            }
 
                             console.log("Student rooms request : "+ room.roomNumber);
                           }
@@ -701,8 +697,8 @@ router.post('/webhook', async (req, res) => {
                         }else{
                           console.log("Alumni rooms request : "+ incomingMsg);
 
-                          if(room.reservation ==='Alumni'){
-                            roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+                          if(room.reservation.toLowerCase() ==='alumni'){
+                            roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
                           }
                         }
                         
@@ -724,23 +720,23 @@ router.post('/webhook', async (req, res) => {
                       let roomOptions = `Available ${user.title} Ladies Hostels:\n`
                       availableLadiesRooms.forEach(room => {
 
-                        if(user.title.toLowerCase()==='student'){
+                        if(user.title.toLowerCase()=='student'){
 
                           console.log("Student rooms request : "+ incomingMsg);
-                          if(room.reservation ==='Student'){
-                            roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+                          if(room.reservation.toLowerCase() =='student'){
+                            roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
                           }
                           
                         }else{
                           console.log("Alumni rooms request : "+ incomingMsg);
-                          if(room.reservation ==='Alumni'){
-                            roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+                          if(room.reservation.toLowerCase()==='alumni'){
+                            roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
                           }
                         }
                         
                       });
-                      twiml.message(roomOptions);
                       await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
+                      twiml.message(roomOptions);
                     } else {
                       twiml.message("Sorry, there are no available rooms at the moment.");
                     }
@@ -748,12 +744,11 @@ router.post('/webhook', async (req, res) => {
 
                  }
 
-                 console.log("\n\n\n------------------------------------------------")
                 } catch (error) {
-                  console.log("\n\n\n------------------------------------------------")
+
                   console.error('Error retrieving available rooms:', error);
                   twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
-                  console.log("\n\n\n------------------------------------------------")
+
                 }
               } else if (user.bookingStatus === 'selecting_room') {
                 try {
@@ -770,13 +765,6 @@ router.post('/webhook', async (req, res) => {
                       const hostel = roomNumberParts[0];
                       const room = roomNumberParts[1];
                       const floor = roomNumberParts[2];
-
-
-                      
-                      console.log("\n\n--------------")
-                      console.log(sender);
-                      console.log(roomNumberParts);
-                      console.log("--------------\n\n")
 
 
                       const agg = user.gender==="M"?
@@ -880,11 +868,6 @@ router.post('/webhook', async (req, res) => {
                       const selectedRoom = await cursor.toArray();
                       
                       if (selectedRoom) {
-
-                        console.log("\n\n--------------")
-                        console.log(sender);
-                        console.log(selectedRoom[0]);
-                        console.log("--------------\n\n")
         
                         await roomsCollection.updateOne({
                           'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
