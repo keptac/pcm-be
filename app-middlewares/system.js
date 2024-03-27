@@ -248,16 +248,17 @@ router.post('/webhook', async (req, res) => {
                   const cursorMale = roomsCollection.aggregate(aggGentsRooms);
                   const availableMaleRooms = await cursorMale.toArray();
 
-                  twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor[Ground(G), Upper(U)]")
-                  // twiml.message("This option is closed at the moment. We will send communication when it becomes available.");
+                   // twiml.message("This option is closed at the moment. We will send communication when it becomes available.");
 
                   console.log("Sender request room: "+ incomingMsg);
 
                   
                   if(user.bookingStatus==="BOOKED"){
-                     twiml.message(`Hey ${user.username}, You have selected/been allocated a room (Number: ${user.selectedRoom}) already.`);
+                     twiml.message(`Hey ${user.username}, You have already selected/been allocated a room. \n\n (Number: ${user.selectedRoom}).`);
                  }else{
 
+                  twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a room from the list the preffered room. \nFor example H1_R000_U")
+                
                   if(user.gender==="M"){
 
                     if (availableMaleRooms.length > 0) {
