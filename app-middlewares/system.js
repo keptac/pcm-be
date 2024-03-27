@@ -238,6 +238,10 @@ router.post('/webhook', async (req, res) => {
             await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
             twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. Book/Select a room\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order Now)`);
             } else {
+
+
+
+
               if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
 
 
@@ -339,7 +343,7 @@ router.post('/webhook', async (req, res) => {
               
               
                             
-              else  if (incomingMsg.toLowerCase()==='404') {
+                if (incomingMsg.toLowerCase()==='404') {
 
 
                 try {
@@ -575,7 +579,7 @@ router.post('/webhook', async (req, res) => {
 
                         if(user.gender==="F"){
 
-                          roomsCollection.updateOne({
+                          await roomsCollection.updateOne({
                             'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'ladies_rooms.rooms.floor': selectedRoom[0].floor,
@@ -588,7 +592,7 @@ router.post('/webhook', async (req, res) => {
 
                         }else{
 
-                          roomsCollection.updateOne({
+                         await  roomsCollection.updateOne({
                             'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'gents_rooms.rooms.floor': selectedRoom[0].floor,
