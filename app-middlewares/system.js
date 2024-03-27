@@ -40,7 +40,7 @@ const aggLadiesRooms = [
         ]
       }, 
       'availableBeds': '$ladies_rooms.rooms.availableBeds',
-      'reservation': '$gents_rooms.rooms.reservation'
+      'reservation': '$ladies_rooms.rooms.reservation'
     }
   }
 ];
@@ -251,7 +251,7 @@ router.post('/webhook', async (req, res) => {
                   const cursorMale = roomsCollection.aggregate(aggGentsRooms);
                   const availableMaleRooms = await cursorMale.toArray();
 
-                   twiml.message("🛠️ This option has been temporarily closed for maintanance 🛠️.");
+                  twiml.message("🛠️ This option has been temporarily closed for maintanance 🛠️.");
 
                   console.log("Sender request room: "+ incomingMsg);
 
@@ -264,7 +264,7 @@ router.post('/webhook', async (req, res) => {
                 //   if(user.gender==="M"){
 
                 //     if (availableMaleRooms.length > 0) {
-                //       twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered from the list write in the format below. \nFor example H1_R000_U")
+                //       twiml.message("Room Key\nH1 - indicates hostel number\nR100 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write the room number as is on the list.")
                 
                 //       let roomOptions = `Available ${user.title} Gents Hostels:\n`;
 
@@ -454,7 +454,7 @@ router.post('/webhook', async (req, res) => {
                       const cursor =  roomsCollection.aggregate(agg);
                       const selectedRoom = await cursor.toArray();
                       
-                      if (selectedRoom) {
+                      if (selectedRoom!==undefined) {
 
                         console.log("\n\n--------------")
                         console.log(sender);
@@ -648,7 +648,14 @@ router.post('/webhook', async (req, res) => {
                   console.error('Error retrieving 3rd party user registration details:', error);
                   twiml.message(`Something went wrong, Please try again later.`);
                 }
-              }else  if (incomingMsg.toLowerCase()==='404') {
+              }
+              
+              
+              
+              
+              
+              
+              else  if (incomingMsg.toLowerCase()==='404') {
 
 
                 try {
@@ -660,8 +667,7 @@ router.post('/webhook', async (req, res) => {
                   const cursorMale = roomsCollection.aggregate(aggGentsRooms);
                   const availableMaleRooms = await cursorMale.toArray();
 
-                  twiml.message("🛠️ This option has been temporarily closed for maintanance 🛠️.");
-
+                  console.log("\n\n\n------------------------------------------------")
                   console.log("Sender request room: "+ incomingMsg);
 
                   console.log("Male ROOMS : "+ incomingMsg);
@@ -679,7 +685,7 @@ router.post('/webhook', async (req, res) => {
                   if(user.gender==="M"){
 
                     if (availableMaleRooms.length > 0) {
-                      twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered from the list write in the format below. \nFor example H1_R000_U")
+                      twiml.message("Room Key\nH1 - indicates hostel number\nR100 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write the exact format as on the list.")
                 
                       let roomOptions = `Available ${user.title} Gents Hostels:\n`;
 
@@ -741,9 +747,13 @@ router.post('/webhook', async (req, res) => {
                   }
 
                  }
+
+                 console.log("\n\n\n------------------------------------------------")
                 } catch (error) {
+                  console.log("\n\n\n------------------------------------------------")
                   console.error('Error retrieving available rooms:', error);
                   twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
+                  console.log("\n\n\n------------------------------------------------")
                 }
               } else if (user.bookingStatus === 'selecting_room') {
                 try {
@@ -755,7 +765,7 @@ router.post('/webhook', async (req, res) => {
                         twiml.message('Invalid room number. Enter room number from the list above in the format: H1_R000_G');
                       }else{
 
-                        console.log("Sender request: "+ user.bookingStatus);
+                      console.log("Sender request: "+ user.bookingStatus);
 
                       const hostel = roomNumberParts[0];
                       const room = roomNumberParts[1];
@@ -890,7 +900,7 @@ router.post('/webhook', async (req, res) => {
                         await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
                         twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
                       } else {
-                        twiml.message(`Room ${roomNumber} is fully booked. Please select another room.`);
+                        twiml.message(`Invalid room selection ${roomNumber}. Please enter correctly room.`);
                       }
                     }
       
@@ -919,6 +929,9 @@ router.post('/webhook', async (req, res) => {
                   twiml.message(`Please reply with 'yes' to confirm your booking or 'no' to cancel.`);
                 }
               }
+
+
+
               
               
               else {
