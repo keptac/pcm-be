@@ -257,15 +257,15 @@ router.post('/webhook', async (req, res) => {
                      twiml.message(`Hey ${user.username}, You have already selected/been allocated a room.\n\n*Number: ${user.selectedRoom}*.`);
                  }else{
 
-                  twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a room from the list the preffered room. \nFor example H1_R000_U")
-                
+                  
                   if(user.gender==="M"){
 
                     if (availableMaleRooms.length > 0) {
+                      twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered from the list write in the format below. \nFor example H1_R000_U")
+                
                       let roomOptions = `Available ${user.title} Gents Hostels:\n`;
 
-                      console.log(availableMaleRooms)
-
+                
                       availableMaleRooms.forEach(room => {
 
                         if(user.title.toLowerCase()==='student'){
@@ -277,7 +277,6 @@ router.post('/webhook', async (req, res) => {
                           
                         }else{
                           console.log("Alumni rooms request : "+ incomingMsg);
-                          console.log(availableMaleRooms)
 
                           if(room.reservation ==='Alumni'){
                             roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
@@ -296,9 +295,25 @@ router.post('/webhook', async (req, res) => {
 
                     console.log("FEMALE HOSTELS")
                     if (availableLadiesRooms.length > 0) {
-                      let roomOptions = "Available Ladies Hostels:\n";
+                      twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered from the list write in the format below. \nFor example H1_R000_U")
+                
+                      let roomOptions = `Available ${user.title} Ladies Hostels:\n`
                       availableLadiesRooms.forEach(room => {
-                        roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+
+                        if(user.title.toLowerCase()==='student'){
+
+                          console.log("Student rooms request : "+ incomingMsg);
+                          if(room.reservation ==='Student'){
+                            roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+                          }
+                          
+                        }else{
+                          console.log("Alumni rooms request : "+ incomingMsg);
+                          if(room.reservation ==='Alumni'){
+                            roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+                          }
+                        }
+                        
                       });
                       twiml.message(roomOptions);
                       await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
