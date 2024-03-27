@@ -571,37 +571,44 @@ router.post('/webhook', async (req, res) => {
                       const cursor =  roomsCollection.aggregate(agg);
                       const selectedRoom = await cursor.toArray();
                       
-                      if (selectedRoom.length>0) {
+ 
 
-                        if(user.gender==="F"){
 
-                          console.log("deducting F")
 
-                          console.log(selectedRoom[0]);
-
-                          await roomsCollection.updateOne(selectedRoom[0], {
+                      if (selectedRoom && selectedRoom.length > 0) { // Check if selectedRoom is not empty
+                        const roomToUpdate = selectedRoom[0];
+                
+                        const updateQuery = user.gender === "F" ? {
+                            'ladies_rooms.rooms.hostel': roomToUpdate.hostel,
+                            'ladies_rooms.rooms.roomNumber': roomToUpdate.roomNumber,
+                            'ladies_rooms.rooms.floor': roomToUpdate.floor
+                            // 'ladies_rooms.rooms.availableBeds': { $gt: 0 },
+                            // 'ladies_rooms.rooms.reservation': roomToUpdate.reservation,
+                        } : {
+                            'gents_rooms.rooms.hostel': roomToUpdate.hostel,
+                            'gents_rooms.rooms.roomNumber': roomToUpdate.roomNumber,
+                            'gents_rooms.rooms.floor': roomToUpdate.floor
+                            // 'gents_rooms.rooms.availableBeds': { $gt: 0 },
+                            // 'gents_rooms.rooms.reservation': roomToUpdate.reservation,
+                        };
+                
+                        const updateField = user.gender === "F" ? 'ladies_rooms.rooms.availableBeds' : 'gents_rooms.rooms.availableBeds';
+                
+                        await roomsCollection.updateOne(updateQuery, {
                             $inc: {
-                                'availableBeds': -1
+                                [updateField]: -1
                             }
                         });
-
-                        }else{
-                          console.log("deducting M")
-
-                          await roomsCollection.updateOne(selectedRoom[0], {
-                            $inc: {
-                              'availableBeds': -1
-                            }
-                          });
-                        }
-        
-                       
-        
-                        await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
+                
+                        // Your existing code for updating user's bookingStatus
+                
                         twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
-                      } else {
-                        twiml.message(`Invalid room selection ${roomNumber}. Please enter correctly room.`);
-                      }
+                    } else {
+                        twiml.message(`Invalid room selection ${roomNumber}. Please enter a correct room number.`);
+                    }
+
+
+
                     }
       
                     
