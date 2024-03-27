@@ -678,7 +678,7 @@ router.post('/webhook', async (req, res) => {
                     if (availableMaleRooms.length > 0) {
                       twiml.message("Room Key\nH1 - indicates hostel number\nR100 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write the exact format as on the list.")
                 
-                      let roomOptions = `Available ${user.title} Gents Hostels:\n`;
+                      let roomOptions = `Available ${user.title} Gents Hostels:\n\n`;
 
                       var characterCount =0
 
@@ -686,11 +686,9 @@ router.post('/webhook', async (req, res) => {
                         if(user.title.toLowerCase()=='student'){
                           if(room.reservation.toLowerCase() =='student'){
 
-                            if(characterCount<1590){
+                     
                               roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-                              characterCount += roomOptions.length
-                            }
-
+                           
                             console.log("Student rooms request : "+ room.roomNumber);
                           }
                           
