@@ -340,10 +340,10 @@ router.post('/webhook', async (req, res) => {
               
               
               //ROOMS SELECTION WORKING
-              // (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') 
+              //  (incomingMsg.toLowerCase()==='404') 
               
                       
-                if  (incomingMsg.toLowerCase()==='404') {
+                if  (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
 
 
                 try {
