@@ -575,12 +575,11 @@ router.post('/webhook', async (req, res) => {
 
                         if(user.gender==="F"){
 
-                          await roomsCollection.updateOne({
+                          roomsCollection.updateOne({
                             'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'ladies_rooms.rooms.floor': selectedRoom[0].floor,
-                            'ladies_rooms.rooms.reservation': selectedRoom[0].reservation,
-                            'ladies_rooms.rooms.availableBeds': { $gt: 0 }
+                            'ladies_rooms.rooms.availableBeds': { '$gt': 0 }
                         }, {
                             $inc: {
                                 'ladies_rooms.rooms.$.availableBeds': -1
@@ -589,12 +588,11 @@ router.post('/webhook', async (req, res) => {
 
                         }else{
 
-                          await roomsCollection.updateOne({
+                          roomsCollection.updateOne({
                             'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'gents_rooms.rooms.floor': selectedRoom[0].floor,
-                            'gents_rooms.rooms.reservation': selectedRoom[0].reservation,
-                            'gents_rooms.rooms.availableBeds': { $gt: 0 }
+                            'gents_rooms.rooms.availableBeds': { '$gt': 0 }
                           }, {
                             $inc: {
                               'gents_rooms.rooms.$.availableBeds': -1
