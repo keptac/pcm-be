@@ -692,10 +692,10 @@ router.post('/webhook', async (req, res) => {
                 
                       availableMaleRooms.forEach(room => {
 
-                        if(user.title.toLowerCase()==='student'){
+                        if(user.title.toLowerCase()=='student'){
 
                           console.log("Student rooms request : "+ incomingMsg);
-                          if(room.reservation ==='Student'){
+                          if(room.reservation.toLowerCase() =='student'){
                             roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
                           }
                           
