@@ -91,8 +91,8 @@ router.post('/webhook', async (req, res) => {
 
     if (incomingMsg.toLowerCase().includes('hi')||incomingMsg.toLowerCase() === 'hello') {
 
-      user?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`)
-      : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
+      user?twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. Book/Select a room\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order Now)`)
+      : twiml.message(`Welcome to ZEUC PCM Mission conference! . ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. Book/Select a room\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order Now)`);
     } else{
         if( userTshirtOrder && userTshirtOrder.orderStatus==="order_started"){
 
@@ -137,7 +137,7 @@ router.post('/webhook', async (req, res) => {
 
           if(userTshirtOrder && userTshirtOrder.orderStatus==="order_completed"){
             twiml.message('You have already ordered a Tshirt. Here is your order: '+ userTshirtOrder.order);
-            twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
+            twiml.message(`Welcome to ZEUC PCM Mission conference!\n\nMenu:\n1. Registration status\n2. Book/Select a room\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order Now)`);
 
           }else{
             twiml.message(`
@@ -221,7 +221,7 @@ router.post('/webhook', async (req, res) => {
                     checkinStatus: 'NOT CHECKED IN'
                 });
       
-                twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
+                twiml.message(`Hello  ${registeredUser.Name || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. Book/Select a room\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order Now)`);
           
               }
       
@@ -236,7 +236,7 @@ router.post('/webhook', async (req, res) => {
 
           if (user && !user.username) {
             await usersCollection.updateOne({ _id: sender }, { $set: { username: incomingMsg } });
-            twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
+            twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. Book/Select a room\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order Now)`);
             } else {
               if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
                 try {
@@ -254,7 +254,7 @@ router.post('/webhook', async (req, res) => {
 
                   
                   if(user.bookingStatus==="BOOKED"){
-                     twiml.message(`Hey ${user.username}, You have already selected/been allocated a room. \n\n (Number: ${user.selectedRoom}).`);
+                     twiml.message(`Hey ${user.username}, You have already selected/been allocated a room.\n\n*Number: ${user.selectedRoom}*.`);
                  }else{
 
                   twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a room from the list the preffered room. \nFor example H1_R000_U")
@@ -472,7 +472,7 @@ router.post('/webhook', async (req, res) => {
                   const selectedRoom = user.selectedRoom;
                   await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'BOOKED'} });
                   twiml.message(`Your booking for Room ${selectedRoom} has been confirmed.`);
-                  twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. View Booking Status\n2. Registration status\n3. Program outline\n4. Theme song`);
+                  twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Book/Select a room\n2. Registration status\n3. Program outline\n4. Theme song`);
       
                 } else if (incomingMsg.toLowerCase() === 'no') {
                   const selectedRoom = user.selectedRoom;
@@ -632,7 +632,7 @@ router.post('/webhook', async (req, res) => {
                 }
               }else {
                 twiml.message("I'm sorry, I didn't understand that. Can you select options from the menu below?");
-                twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. View Booking Status\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order T-Shirt/ Hoodie)`);
+                twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Registration status\n2. Book/Select a room\n3. Program outline\n4. Theme Song\n5. Check for someone\n6. PCM Shop (Order Now)`);
               }
           }
         }
