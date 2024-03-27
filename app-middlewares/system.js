@@ -39,7 +39,8 @@ const aggLadiesRooms = [
           '$ladies_rooms.rooms.hostel', '_', '$ladies_rooms.rooms.roomNumber', '_', '$ladies_rooms.rooms.floor'
         ]
       }, 
-      'availableBeds': '$ladies_rooms.rooms.availableBeds'
+      'availableBeds': '$ladies_rooms.rooms.availableBeds',
+      'reservation': '$gents_rooms.rooms.reservation'
     }
   }
 ];
@@ -61,7 +62,8 @@ const aggGentsRooms = [
           '$gents_rooms.rooms.hostel', '_', '$gents_rooms.rooms.roomNumber', '_', '$gents_rooms.rooms.floor'
         ]
       }, 
-      'availableBeds': '$gents_rooms.rooms.availableBeds'
+      'availableBeds': '$gents_rooms.rooms.availableBeds',
+      'reservation': '$gents_rooms.rooms.reservation'
     }
   }
 ];
@@ -262,7 +264,7 @@ router.post('/webhook', async (req, res) => {
                       let roomOptions = `Available ${user.title} Gents Hostels:\n`;
 
                       console.log(availableMaleRooms)
-                      
+
                       availableMaleRooms.forEach(room => {
 
                         if(user.title.toLowerCase()==='student'){
