@@ -609,8 +609,7 @@ router.post('/webhook', async (req, res) => {
                             'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'gents_rooms.rooms.floor': selectedRoom[0].floor,
-                            'gents_rooms.rooms.reservation': selectedRoom[0].reservation,
-                            'gents_rooms.rooms.availableBeds': { '$gt': 0 }
+                            'gents_rooms.rooms.reservation': selectedRoom[0].reservation
                           }, {
                             $set: {
                               'gents_rooms.rooms.$.availableBeds': availableBeds
