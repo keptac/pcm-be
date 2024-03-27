@@ -335,7 +335,7 @@ router.post('/webhook', async (req, res) => {
               
               
               
-              
+              //ROOMS SELECTION WORKINF
               
               
                      
@@ -647,9 +647,15 @@ router.post('/webhook', async (req, res) => {
                   console.error('Error retrieving user registration details:', error);
                   twiml.message(`Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.`);
                 }
-              } else if (incomingMsg.toLowerCase().includes('program outline')||incomingMsg.toLowerCase() === '3') {
+              } 
+              
+              
+              else if (incomingMsg.toLowerCase().includes('program outline')||incomingMsg.toLowerCase() === '3') {
                 twiml.message("Program outline not available yet.");
-              } else if (incomingMsg.toLowerCase().includes('music') ||incomingMsg.toLowerCase().includes('theme song')||incomingMsg.toLowerCase().includes('song') || incomingMsg.toLowerCase() === '4') {
+              } 
+              
+              
+              else if (incomingMsg.toLowerCase().includes('music') ||incomingMsg.toLowerCase().includes('theme song')||incomingMsg.toLowerCase().includes('song') || incomingMsg.toLowerCase() === '4') {
 
                 const song = `
                   Written and Arranged by Delight Mandina
@@ -686,10 +692,15 @@ router.post('/webhook', async (req, res) => {
                   Let your Spirit lead today
                   `
                 twiml.message(song);
-              } else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase().includes('check for someone') || incomingMsg.toLowerCase() === '5') {
+              } 
+              
+              
+              else if (incomingMsg.toLowerCase().includes('someone') || incomingMsg.toLowerCase().includes('check for someone') || incomingMsg.toLowerCase() === '5') {
                 await usersCollection.updateOne({ _id: sender }, { $set: { chatStatus: '3rd_party_verification' } });
                 twiml.message("Please enter their phone number in the format: 0771000000");
-              } else if (user.chatStatus === '3rd_party_verification') {
+              } 
+              
+              else if (user.chatStatus === '3rd_party_verification') {
                 const thirdPartyNumber = incomingMsg.replace(" ","").substring(incomingMsg.replace(" ","").length - 9);
                 try {
                   const userData = await usersCollection.findOne({ _id: "263"+thirdPartyNumber });
@@ -771,6 +782,8 @@ router.post('/webhook', async (req, res) => {
               
               
               
+
+              //ROOMS SELECTION TEST 404
               
               
               else  if (incomingMsg.toLowerCase()==='404') {
@@ -1005,18 +1018,37 @@ router.post('/webhook', async (req, res) => {
                       const cursor =  roomsCollection.aggregate(agg);
                       const selectedRoom = await cursor.toArray();
                       
-                      if (selectedRoom) {
+                      if (selectedRoom!==undefined) {
+
+                        if(user.gender==="F"){
+
+                          await roomsCollection.updateOne({
+                            'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
+                            'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
+                            'ladies_rooms.rooms.floor': selectedRoom[0].floor,
+                            'ladies_rooms.rooms.availableBeds': { $gt: 0 }
+                          }, {
+                            $inc: {
+                              'ladies_rooms.rooms.$.availableBeds': -1
+                            }
+                          });
+
+                        }else{
+                          
+
+                          await roomsCollection.updateOne({
+                            'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
+                            'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
+                            'gents_rooms.rooms.floor': selectedRoom[0].floor,
+                            'gents_rooms.rooms.availableBeds': { $gt: 0 }
+                          }, {
+                            $inc: {
+                              'gents_rooms.rooms.$.availableBeds': -1
+                            }
+                          });
+                        }
         
-                        await roomsCollection.updateOne({
-                          'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
-                          'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
-                          'ladies_rooms.rooms.floor': selectedRoom[0].floor,
-                          'ladies_rooms.rooms.availableBeds': { $gt: 0 }
-                        }, {
-                          $inc: {
-                            'ladies_rooms.rooms.$.availableBeds': -1
-                          }
-                        });
+                       
         
                         await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
                         twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
