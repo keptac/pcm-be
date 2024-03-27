@@ -249,7 +249,7 @@ router.post('/webhook', async (req, res) => {
                   twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor[Ground(G), Upper(U)]")
                   // twiml.message("This option is closed at the moment. We will send communication when it becomes available.");
 
-                  console.log("Sender request requeting room: "+ incomingMsg);
+                  console.log("Sender request room: "+ incomingMsg);
 
                   
                   if(user.bookingStatus==="BOOKED"){
@@ -263,11 +263,14 @@ router.post('/webhook', async (req, res) => {
                       availableMaleRooms.forEach(room => {
 
                         if(user.title.toLowerCase()==='student'){
+
+                          console.log("Student rooms request : "+ incomingMsg);
                           if(room.reservation ==='Student'){
                             roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
                           }
                           
                         }else{
+                          console.log("Alumni rooms request : "+ incomingMsg);
                           if(room.reservation ==='Alumni'){
                             roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
                           }
