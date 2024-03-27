@@ -260,6 +260,8 @@ router.post('/webhook', async (req, res) => {
 
                     if (availableMaleRooms.length > 0) {
                       let roomOptions = `Available ${user.title} Gents Hostels:\n`;
+
+
                       availableMaleRooms.forEach(room => {
 
                         if(user.title.toLowerCase()==='student'){
@@ -271,6 +273,8 @@ router.post('/webhook', async (req, res) => {
                           
                         }else{
                           console.log("Alumni rooms request : "+ incomingMsg);
+                          console.log(room.reservation)
+                          
                           if(room.reservation ==='Alumni'){
                             roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
                           }
