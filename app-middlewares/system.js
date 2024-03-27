@@ -571,45 +571,44 @@ router.post('/webhook', async (req, res) => {
                       const cursor =  roomsCollection.aggregate(agg);
                       const selectedRoom = await cursor.toArray();
                       
- 
+                      if (selectedRoom.length>0) {
 
+                        if(user.gender==="F"){
 
-
-                      if (selectedRoom && selectedRoom.length > 0) { // Check if selectedRoom is not empty
-                        const roomToUpdate = selectedRoom[0];
-                
-                        const updateQuery = user.gender === "F" ? {
-                            'ladies_rooms.rooms.hostel': roomToUpdate.hostel,
-                            'ladies_rooms.rooms.roomNumber': roomToUpdate.roomNumber,
-                            'ladies_rooms.rooms.floor': roomToUpdate.floor,
-                            'ladies_rooms.rooms.reservation': roomToUpdate.reservation,
+                          await roomsCollection.updateMany({
+                            'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
+                            'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
+                            'ladies_rooms.rooms.floor': selectedRoom[0].floor,
+                            'ladies_rooms.rooms.reservation': selectedRoom[0].reservation,
                             'ladies_rooms.rooms.availableBeds': { $gt: 0 }
-                        } : {
-                            'gents_rooms.rooms.hostel': roomToUpdate.hostel,
-                            'gents_rooms.rooms.roomNumber': roomToUpdate.roomNumber,
-                            'gents_rooms.rooms.floor': roomToUpdate.floor,
-                            
-                            'gents_rooms.rooms.reservation': roomToUpdate.reservation,
-                            'gents_rooms.rooms.availableBeds': { $gt: 0 }
-                        };
-                
-                        const updateField = user.gender === "F" ? 'ladies_rooms.rooms.availableBeds' : 'gents_rooms.rooms.availableBeds';
-                
-                        await roomsCollection.updateOne(updateQuery, {
+                        }, {
                             $inc: {
-                                [updateField]: -1
+                                'ladies_rooms.rooms.$.availableBeds': -1
                             }
                         });
-                
-                        // Your existing code for updating user's bookingStatus
-                
+
+                        }else{
+
+                          await roomsCollection.updateMany({
+                            'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
+                            'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
+                            'gents_rooms.rooms.floor': selectedRoom[0].floor,
+                            'gents_rooms.rooms.reservation': selectedRoom[0].reservation,
+                            'gents_rooms.rooms.availableBeds': { $gt: 0 }
+                          }, {
+                            $inc: {
+                              'gents_rooms.rooms.$.availableBeds': -1
+                            }
+                          });
+                        }
+        
+                       
+        
+                        await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
                         twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
-                    } else {
-                        twiml.message(`Invalid room selection ${roomNumber}. Please enter a correct room number.`);
-                    }
-
-
-
+                      } else {
+                        twiml.message(`Invalid room selection ${roomNumber}. Please enter correctly room.`);
+                      }
                     }
       
                     
