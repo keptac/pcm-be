@@ -7,27 +7,46 @@
             "availableBeds": 4,
             "reservation": "Alumni"
           },
+
           {
             "hostel": "H1",
-            "roomNumber": "R203",
-            "floor": "U",
+            "roomNumber": "R107",
+            "floor": "G",
             "availableBeds": 4,
             "reservation": "Alumni"
           },
+
+          {
+            "hostel": "H1",
+            "roomNumber": "R110",
+            "floor": "G",
+            "availableBeds": 4,
+            "reservation": "Alumni"
+          },
+          {
+            "hostel": "H1",
+            "roomNumber": "R113",
+            "floor": "G",
+            "availableBeds": 4,
+            "reservation": "Alumni"
+          },
+
+          {
+            "hostel": "H1",
+            "roomNumber": "R116",
+            "floor": "G",
+            "availableBeds": 4,
+            "reservation": "Alumni"
+          },
+
         {
             "hostel": "H1",
             "roomNumber": "R119",
             "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
-          {
-            "hostel": "H1",
-            "roomNumber": "R121",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
+
           {
             "hostel": "H1",
             "roomNumber": "R123",
@@ -51,35 +70,28 @@
           },
           {
             "hostel": "H1",
-            "roomNumber": "R160",
+            "roomNumber": "R140",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H1",
-            "roomNumber": "R163",
+            "roomNumber": "R145",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H1",
-            "roomNumber": "R165",
+            "roomNumber": "R147",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H1",
-            "roomNumber": "R167",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R150",
+            "roomNumber": "R140",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
@@ -101,13 +113,6 @@
           {
             "hostel": "H1",
             "roomNumber": "R159",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R166",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
@@ -147,48 +152,82 @@
             "availableBeds": 6,
             "reservation": "Student"
           },
+
+
+
+
+
+          {
+            "hostel": "H1",
+            "roomNumber": "R203",
+            "floor": "U",
+            "availableBeds": 0,
+            "reservation": "Alumni"
+          },
+          {
+            "hostel": "H1",
+            "roomNumber": "R206",
+            "floor": "U",
+            "availableBeds": 0,
+            "reservation": "Alumni"
+          },
+          
+          {
+            "hostel": "H1",
+            "roomNumber": "R209",
+            "floor": "U",
+            "availableBeds": 0,
+            "reservation": "Alumni"
+          },
+          {
+            "hostel": "H1",
+            "roomNumber": "R212",
+            "floor": "U",
+            "availableBeds": 4,
+            "reservation": "Alumni"
+          },
+          
+
           {
             "hostel": "H1",
             "roomNumber": "R218",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
           {
             "hostel": "H1",
             "roomNumber": "R219",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
-          {
-            "hostel": "H1",
-            "roomNumber": "R221",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
+
           {
             "hostel": "H1",
             "roomNumber": "R223",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
           {
             "hostel": "H1",
             "roomNumber": "R226",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
           {
             "hostel": "H1",
             "roomNumber": "R229",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
+
+
+
+
           {
             "hostel": "H1",
             "roomNumber": "R233",
@@ -212,28 +251,21 @@
           },
           {
             "hostel": "H1",
-            "roomNumber": "R261",
+            "roomNumber": "R243",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H1",
-            "roomNumber": "R263",
+            "roomNumber": "R245",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H1",
-            "roomNumber": "R265",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R268",
+            "roomNumber": "R248",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
@@ -247,7 +279,7 @@
           },
           {
             "hostel": "H1",
-            "roomNumber": "R256",
+            "roomNumber": "R254",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
@@ -255,13 +287,6 @@
           {
             "hostel": "H1",
             "roomNumber": "R257",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R262",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
@@ -289,18 +314,17 @@
           },
           {
             "hostel": "H1",
-            "roomNumber": "R279",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
             "roomNumber": "R282",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
           },
+
+
+
+
+
+
           {
             "hostel": "H2",
             "roomNumber": "R107",
@@ -359,28 +383,21 @@
           },
           {
             "hostel": "H2",
-            "roomNumber": "R160",
+            "roomNumber": "R140",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H2",
-            "roomNumber": "R163",
+            "roomNumber": "R145",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H2",
-            "roomNumber": "R165",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R167",
+            "roomNumber": "R147",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
@@ -406,6 +423,7 @@
             "availableBeds": 6,
             "reservation": "Student"
           },
+
           {
             "hostel": "H2",
             "roomNumber": "R159",
@@ -415,18 +433,12 @@
           },
           {
             "hostel": "H2",
-            "roomNumber": "R163",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
             "roomNumber": "R165",
             "floor": "G",
             "availableBeds": 6,
             "reservation": "Student"
           },
+
           {
             "hostel": "H2",
             "roomNumber": "R168",
@@ -455,26 +467,27 @@
             "availableBeds": 6,
             "reservation": "Student"
           },
+
           {
             "hostel": "H2",
             "roomNumber": "R207",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
           {
             "hostel": "H2",
             "roomNumber": "R212",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
           {
             "hostel": "H2",
             "roomNumber": "R213",
             "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
+            "availableBeds": 4,
+            "reservation": "Alumni"
           },
           {
             "hostel": "H2",
@@ -486,13 +499,6 @@
           {
             "hostel": "H2",
             "roomNumber": "R219",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R221",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
@@ -541,21 +547,21 @@
           },
           {
             "hostel": "H2",
-            "roomNumber": "R263",
+            "roomNumber": "R243",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H2",
-            "roomNumber": "R267",
+            "roomNumber": "R247",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
           },
           {
             "hostel": "H2",
-            "roomNumber": "R268",
+            "roomNumber": "R248",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
@@ -569,7 +575,7 @@
           },
           {
             "hostel": "H2",
-            "roomNumber": "R256",
+            "roomNumber": "R254",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
@@ -577,13 +583,6 @@
           {
             "hostel": "H2",
             "roomNumber": "R257",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R261",
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
@@ -622,586 +621,489 @@
             "floor": "U",
             "availableBeds": 6,
             "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R107",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R206",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R110",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R209",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R113",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R212",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R116",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R215",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
           }
-
     ]
 },
 
+
 "gents_rooms": {
-    "rooms": [
+  "rooms": [
         {
-            "hostel": "H1",
-            "roomNumber": "R165",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R167",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
+          "hostel": "H1",
+          "roomNumber": "R165",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
         {
-            "hostel": "H1",
-            "roomNumber": "R219",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R221",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R223",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R226",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R229",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R233",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R235",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R238",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R263",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R267",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R268",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R251",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R256",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R257",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R261",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R263",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R265",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R277",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R280",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R282",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R157",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R163",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R156",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R160",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R151",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R168",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R163",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R138",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R160",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R115",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R109",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R106",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R103",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R186",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R183",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R125",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R171",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R168",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R112",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R118",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R123",
-            "floor": "G",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R206",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R209",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R212",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R215",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R218",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R223",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R231",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R236",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R237",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R262",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R265",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R267",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R250",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R253",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R256",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R259",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R263",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R263",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R270",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R273",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R277",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R280",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H2",
-            "roomNumber": "R283",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Student"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R180",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R182",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R185",
-            "floor": "G",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R203",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R207",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R212",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R213",
-            "floor": "U",
-            "availableBeds": 4,
-            "reservation": "Alumni"
-          },
-          {
-            "hostel": "H1",
-            "roomNumber": "R216",
-            "floor": "U",
-            "availableBeds": 6,
-            "reservation": "Alumni"
-          }
-    ]
+          "hostel": "H1",
+          "roomNumber": "R167",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R180",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R182",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R185",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+      {
+          "hostel": "H1",
+          "roomNumber": "R203",
+          "floor": "U",
+          "availableBeds": 0,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R207",
+          "floor": "U",
+          "availableBeds": 0,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R210",
+          "floor": "U",
+          "availableBeds": 0,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R213",
+          "floor": "U",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R216",
+          "floor": "U",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+
+
+
+
+        {
+          "hostel": "H1",
+          "roomNumber": "R219",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R221",
+          "floor": "U",
+          "availableBeds": 0,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R145",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R150",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R151",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R154",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R157",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R236",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R239",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R251",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R254",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R257",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+
+        {
+          "hostel": "H1",
+          "roomNumber": "R263",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R265",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H1",
+          "roomNumber": "R282",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+
+
+
+        {
+          "hostel": "H2",
+          "roomNumber": "R157",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R163",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R154",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R160",
+          "floor": "G",
+          "availableBeds": 4,
+          "reservation": "Alumni"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R151",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R148",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R143",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R138",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R140",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R115",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R109",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R106",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R103",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R186",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R183",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R125",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R171",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R168",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R112",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R118",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R123",
+          "floor": "G",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+
+
+
+
+        {
+          "hostel": "H2",
+          "roomNumber": "R206",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R209",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R212",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R215",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R218",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R223",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R231",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R234",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R237",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+
+        {
+          "hostel": "H2",
+          "roomNumber": "R247",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R250",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R253",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R256",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R259",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R262",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+
+        {
+          "hostel": "H2",
+          "roomNumber": "R270",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R273",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R277",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R280",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        },
+        {
+          "hostel": "H2",
+          "roomNumber": "R283",
+          "floor": "U",
+          "availableBeds": 6,
+          "reservation": "Student"
+        }
+  ]
 }
+
