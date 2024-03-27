@@ -694,11 +694,14 @@ router.post('/webhook', async (req, res) => {
 
                         if(user.title.toLowerCase()=='student'){
 
-                          console.log("Student rooms request : "+ room);
-                          console.log("Student rooms request : "+ room.reservation);
-                          
+                         
+                          console.log("Student rooms request : "+ room.reservation.toLowerCarse());
+                          console.log(room);
+
                           if(room.reservation.toLowerCase() =='student'){
                             roomOptions += `Room ${room.roomNumber} - Available Beds: ${room.availableBeds}\n`;
+
+                            console.log("Student rooms request : "+ room.roomNumber);
                           }
                           
                         }else{
