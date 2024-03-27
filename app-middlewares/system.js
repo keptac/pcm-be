@@ -407,7 +407,7 @@ router.post('/webhook', async (req, res) => {
 
                     console.log("FEMALE HOSTELS")
                     if (availableLadiesRooms.length > 0) {
-                      twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered from the list write in the format below. \nFor example H1_R000_U")
+                      twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write in the format below.")
                 
                       let roomOptions = `Available ${user.title} Ladies Hostels:\n`
 
@@ -576,6 +576,8 @@ router.post('/webhook', async (req, res) => {
                         if(user.gender==="F"){
 
                           console.log("deducting F")
+
+                          console.log(selectedRoom[0]);
 
                           await roomsCollection.updateOne({
                             'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
