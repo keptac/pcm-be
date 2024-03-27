@@ -695,7 +695,7 @@ router.post('/webhook', async (req, res) => {
                         if(user.title.toLowerCase()=='student'){
 
                          
-                          console.log("Student rooms request : "+ room.reservation.toLowerCarse());
+                          console.log("Student rooms request : "+ room.reservation.toLowerCase());
                           console.log(room);
 
                           if(room.reservation.toLowerCase() =='student'){
@@ -714,8 +714,9 @@ router.post('/webhook', async (req, res) => {
                         
 
                       });
+                      console.log(roomOptions);
                       twiml.message(roomOptions);
-                      await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
+                      await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: '' } });
                     } else {
                       twiml.message("Sorry, there are no available rooms at the moment.");
                     }
