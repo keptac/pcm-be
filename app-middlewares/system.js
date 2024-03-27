@@ -401,8 +401,9 @@ router.post('/webhook', async (req, res) => {
 
                       });
                       console.log(roomOptions);
-                      await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
+                     
                       twiml.message(roomOptions);
+                      await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
                     } else {
                       twiml.message("Sorry, there are no available rooms at the moment.");
                     }
