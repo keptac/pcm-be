@@ -592,12 +592,12 @@ router.post('/webhook', async (req, res) => {
                             'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'ladies_rooms.rooms.floor': selectedRoom[0].floor,
-                            'ladies_rooms.rooms.floor': selectedRoom[0].reservation,
-                            'ladies_rooms.rooms.availableBeds': { '$gt': 0 }
+                            'ladies_rooms.rooms.floor': selectedRoom[0].reservation
                         }, {
-                            $inc: {
-                                'ladies_rooms.rooms.$.availableBeds': -1
-                            }
+
+                          $set: {
+                            'ladies_rooms.rooms.$.availableBeds': availableBeds
+                          }
                         }).then(()=>{
                           usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
                           twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
@@ -605,7 +605,7 @@ router.post('/webhook', async (req, res) => {
 
                         }else{
 
-                       const results = await roomsCollection.updateOne({
+                        await roomsCollection.updateOne({
                             'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'gents_rooms.rooms.floor': selectedRoom[0].floor,
@@ -618,9 +618,6 @@ router.post('/webhook', async (req, res) => {
                             usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
                             twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
                           });
-
-                          console.log(results);
-                          console.log("---------");
                         }
         
         
