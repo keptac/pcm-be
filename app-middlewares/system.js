@@ -675,6 +675,8 @@ router.post('/webhook', async (req, res) => {
                   
                   if(user.gender==="M"){
 
+
+
                     if (availableMaleRooms.length > 0) {
                       twiml.message("Room Key\nH1 - indicates hostel number\nR100 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write the exact format as on the list.")
                 
@@ -686,7 +688,7 @@ router.post('/webhook', async (req, res) => {
                         if(user.title.toLowerCase()=='student'){
                           if(room.reservation.toLowerCase() =='student'){
 
-                            if(characterCount<1590){
+                            if(characterCount<=1600){
                               roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
                               characterCount = roomOptions.length
                             }
@@ -698,7 +700,13 @@ router.post('/webhook', async (req, res) => {
                           console.log("Alumni rooms request : "+ incomingMsg);
 
                           if(room.reservation.toLowerCase() ==='alumni'){
-                            roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+
+                            if(characterCount<=1600){
+                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                              characterCount = roomOptions.length
+                            }
+
+
                           }
                         }
                         
@@ -718,19 +726,31 @@ router.post('/webhook', async (req, res) => {
                       twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered from the list write in the format below. \nFor example H1_R000_U")
                 
                       let roomOptions = `Available ${user.title} Ladies Hostels:\n`
+
+                      var characterCount =0
+                      
                       availableLadiesRooms.forEach(room => {
 
                         if(user.title.toLowerCase()=='student'){
 
                           console.log("Student rooms request : "+ incomingMsg);
                           if(room.reservation.toLowerCase() =='student'){
-                            roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                            if(characterCount<=1600){
+                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                              characterCount = roomOptions.length
+                            }
+
                           }
                           
                         }else{
                           console.log("Alumni rooms request : "+ incomingMsg);
                           if(room.reservation.toLowerCase()==='alumni'){
-                            roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+
+                            if(characterCount<=1600){
+                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                              characterCount = roomOptions.length
+                            }
+                          
                           }
                         }
                         
