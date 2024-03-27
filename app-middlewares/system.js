@@ -626,10 +626,10 @@ router.post('/webhook', async (req, res) => {
                   twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Book/Select a room\n2. Registration status\n3. Program outline\n4. Theme song`);
       
                 } else if (incomingMsg.toLowerCase() === 'no') {
-                  const selectedRoom = user.selectedRoom;
-                  const roomsCollection = db.collection('rooms');
+                  // const selectedRoom = user.selectedRoom;
+                  // const roomsCollection = db.collection('rooms');
       
-                  await roomsCollection.updateOne({ number: selectedRoom }, { $inc: { availableBeds: 1 } });
+                  // await roomsCollection.updateOne({ number: selectedRoom }, { $inc: { availableBeds: 1 } });
       
                   await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: '', selectedRoom: '' } });
                   twiml.message(`Your booking for Room ${selectedRoom} has been cancelled.`);
