@@ -581,12 +581,14 @@ router.post('/webhook', async (req, res) => {
                         console.log(selectedRoom)
                         console.log("SELECTED ROOOOOOOMMMMMMMMMMMM\n\n\n\n\n\n\n")
 
-                        if(user.gender==="F"){
+
+                        if(user.gender=="F"){
 
                           await roomsCollection.updateOne({
                             'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'ladies_rooms.rooms.floor': selectedRoom[0].floor,
+                            'ladies_rooms.rooms.floor': selectedRoom[0].reservation,
                             'ladies_rooms.rooms.availableBeds': { '$gt': 0 }
                         }, {
                             $inc: {
@@ -599,16 +601,37 @@ router.post('/webhook', async (req, res) => {
 
                         }else{
 
-                        await roomsCollection.updateOne({
-                            'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
-                            'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
-                            'gents_rooms.rooms.floor': selectedRoom[0].floor,
-                            'gents_rooms.rooms.availableBeds': { '$gt': 0 }
-                          }, {
-                            $inc: {
-                              'gents_rooms.rooms.$.availableBeds': -1
+                        await roomsCollection.updateOne(
+                          {
+                            'gents_rooms.rooms': {
+                              $elemMatch: {
+                                hostel: selectedRoom[0].hostel,
+                                roomNumber: selectedRoom[0].roomNumber,
+                                floor: selectedRoom[0].floor,
+                                reservation: selectedRoom[0].reservation,
+                                availableBeds: { $gt: 0 }
+                              }
                             }
-                          }).then(()=>{
+                          },
+                          [{
+                            $set: {
+                              'gents_rooms.rooms.$[room].availableBeds': {
+                                $subtract: ['$gents_rooms.rooms.$[room].availableBeds', 1]
+                              }
+                            }
+                          }],
+                          {
+                            arrayFilters: [
+                              {
+                                'room.hostel': selectedRoom[0].hostel,
+                                'room.roomNumber': selectedRoom[0].roomNumber,
+                                'room.floor': selectedRoom[0].floor,
+                                'room.reservation': selectedRoom[0].reservation,
+                                'room.availableBeds': { $gt: 0 }
+                              }
+                            ]
+                          }
+                        ).then(()=>{
                             usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
                             twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
                           });
