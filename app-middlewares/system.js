@@ -474,7 +474,6 @@ router.post('/webhook', async (req, res) => {
                       const room = roomNumberParts[1];
                       const floor = roomNumberParts[2];
 
-
                       const agg = user.gender==="M"?
                       [
                         {
@@ -577,6 +576,11 @@ router.post('/webhook', async (req, res) => {
                       
                       if (selectedRoom.length>0) {
 
+
+                        console.log("\n\n\n\n\n\n\nSELECTED ROOOOOOOMMMMMMMMMMMM")
+                        console.log(selectedRoom)
+                        console.log("SELECTED ROOOOOOOMMMMMMMMMMMM\n\n\n\n\n\n\n")
+
                         if(user.gender==="F"){
 
                           await roomsCollection.updateOne({
@@ -588,11 +592,14 @@ router.post('/webhook', async (req, res) => {
                             $inc: {
                                 'ladies_rooms.rooms.$.availableBeds': -1
                             }
+                        }).then(()=>{
+                          usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
+                          twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
                         });
 
                         }else{
 
-                         await  roomsCollection.updateOne({
+                        await roomsCollection.updateOne({
                             'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
                             'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
                             'gents_rooms.rooms.floor': selectedRoom[0].floor,
@@ -601,12 +608,14 @@ router.post('/webhook', async (req, res) => {
                             $inc: {
                               'gents_rooms.rooms.$.availableBeds': -1
                             }
+                          }).then(()=>{
+                            usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
+                            twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
                           });
                         }
         
         
-                        await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
-                        twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
+
                       } else {
                         twiml.message(`Invalid room selection ${roomNumber}. Please enter correctly room.`);
                       }
