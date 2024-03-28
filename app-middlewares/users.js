@@ -85,8 +85,8 @@ router.post('/checkin', async (req, res) => {
                 sessions: registeredUser.Note,
                 institute: registeredUser.Organization,
                 registrationStatus: 'REGISTERED',
-                bookingStatus: 'BOOKED', 
-                selectedRoom: registeredUser.Room,
+                bookingStatus:"", 
+                selectedRoom: "",
                 checkinStatus: 'CHECKED IN'
             });
 
