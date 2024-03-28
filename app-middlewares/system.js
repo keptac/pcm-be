@@ -355,6 +355,13 @@ router.post('/webhook', async (req, res) => {
                   const cursorMale = roomsCollection.aggregate(aggGentsRooms);
                   const availableMaleRooms = await cursorMale.toArray();
 
+
+                  console.log("\n\n\n\n\n\n-------------GENTS HOSTELS AVAILABLE----------------")
+                  console.log(availableMaleRooms)
+                  console.log("\n\n-------------LADIES HOSTELS AVAILABLE----------------")
+                  console.log(availableLadiesRooms)
+                  console.log("-------------END OF AVAILABLE HOSTELS AVAILABLE----------------\n\n\n\n\n\n")
+
                   
                   if(user.bookingStatus==="BOOKED"){
                     twiml.message(`Hey ${user.username}, You have already selected/been allocated a room.\n\n*Number: ${user.selectedRoom}*.`);
