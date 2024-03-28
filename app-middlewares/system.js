@@ -1018,9 +1018,9 @@ router.post('/webhook', async (req, res) => {
               } 
               
               else if (user.chatStatus === '3rd_party_verification') {
-                const thirdPartyNumber = incomingMsg.replace(" ","").substring(incomingMsg.replace(" ","").length - 9);
+                const thirdPartyNumber = incomingMsg.replace(" ","").length==11?incomingMsg.replace(" ","").substring(incomingMsg.replace(" ","").length - 10):incomingMsg.replace(" ","").substring(incomingMsg.replace(" ","").length - 9); 
                 try {
-                  const userData = await usersCollection.findOne({ _id: "263"+thirdPartyNumber });
+                  const userData = incomingMsg.replace(" ","").length==11?await usersCollection.findOne({ _id: "1"+thirdPartyNumber }): await usersCollection.findOne({ _id: "263"+thirdPartyNumber });
                   if (userData) {
 
                     console.log(userData +"Checking for user on their behalf")
@@ -1061,9 +1061,14 @@ router.post('/webhook', async (req, res) => {
                         } else {
                             console.log("Found registered user:", results[0]);
                             registeredUser = results[0];
+
+                            //new change
+                            var userId = incomingMsg.replace(" ","").length==11?"1"+thirdPartyNumber:"263"+thirdPartyNumber;
+                            
+                            
               
                             await usersCollection.insertOne({
-                              _id: "263"+thirdPartyNumber, 
+                              _id: userId, 
                               username: registeredUser.Name, 
                               gender:registeredUser.Gender,
                               title: registeredUser.Title,
