@@ -91,11 +91,14 @@ router.post('/checkin', async (req, res) => {
                 checkinStatus: 'CHECKED IN'
             });
 
+            let userCreated = await usersCollection.findOne({ _id: sender });
+
             res.status(200).send({
               'success': true,
-              'message': registeredUser.Name+' checkin in successful.',
+              'message': registeredUser.Name+' checkin successful.',
               'responseBody': {
-                'message': registeredUser.Name+' checkin in successful. Room number '+registeredUser.Room,
+                'message': registeredUser.Name+' checkin successful. Room number  NOT ALLOCATED',
+                userCreated
               }
             });
             res.end();
@@ -120,9 +123,10 @@ router.post('/checkin', async (req, res) => {
 
         res.status(200).send({
           'success': true,
-          'message': user.username+' checkin in successful.',
+          'message': user.username+' checkin successful.',
           'responseBody': {
-            'message': user.username+' checkin in successful. Room number '+ user.selectedRoom,
+            'message': user.username+' checkin successful. Room number '+ user.selectedRoom,
+            user
           }
         });
         res.end();
