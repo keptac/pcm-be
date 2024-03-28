@@ -182,9 +182,9 @@ router.post('/webhook', async (req, res) => {
 
         if (!user) {
           const columnName = 'Phone'; 
-          const searchValue = sender.substring(sender.length - 9);
+          const searchValue = sender.length==11?sender.substring(sender.length - 10):sender.substring(sender.length - 9);
           let registeredUser;
-      
+
           try {
               const results = await new Promise((resolve, reject) => {
 
