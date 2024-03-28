@@ -345,441 +345,131 @@ router.post('/webhook', async (req, res) => {
                       
                 if  (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
 
+                  twiml.message("This option has been closed.");
 
-                try {
-                  const roomsCollection = db.collection('rooms');
+                // try {
+                //   const roomsCollection = db.collection('rooms');
 
-                  const cursor = roomsCollection.aggregate(aggLadiesRooms);
-                  const availableLadiesRooms = await cursor.toArray();
+                //   const cursor = roomsCollection.aggregate(aggLadiesRooms);
+                //   const availableLadiesRooms = await cursor.toArray();
 
-                  const cursorMale = roomsCollection.aggregate(aggGentsRooms);
-                  const availableMaleRooms = await cursorMale.toArray();
+                //   const cursorMale = roomsCollection.aggregate(aggGentsRooms);
+                //   const availableMaleRooms = await cursorMale.toArray();
 
 
-                  console.log("\n\n\n\n\n\n-------------GENTS HOSTELS AVAILABLE----------------")
-                  console.log(availableMaleRooms)
-                  console.log("\n\n-------------LADIES HOSTELS AVAILABLE----------------")
-                  console.log(availableLadiesRooms)
-                  console.log("-------------END OF AVAILABLE HOSTELS AVAILABLE----------------\n\n\n\n\n\n")
-
-                  
-                  if(user.bookingStatus==="BOOKED"){
-                    twiml.message(`Hey ${user.username}, You have already selected/been allocated a room.\n\n*Number: ${user.selectedRoom}*.`);
-                }else{
+                //   console.log("\n\n\n\n\n\n-------------GENTS HOSTELS AVAILABLE----------------")
+                //   console.log(availableMaleRooms)
+                //   console.log("\n\n-------------LADIES HOSTELS AVAILABLE----------------")
+                //   console.log(availableLadiesRooms)
+                //   console.log("-------------END OF AVAILABLE HOSTELS AVAILABLE----------------\n\n\n\n\n\n")
 
                   
-                  if(user.gender==="M"){
+                //   if(user.bookingStatus==="BOOKED"){
+                //     twiml.message(`Hey ${user.username}, You have already selected/been allocated a room.\n\n*Number: ${user.selectedRoom}*.`);
+                // }else{
+
+                  
+                //   if(user.gender==="M"){
 
 
 
-                    if (availableMaleRooms.length > 0) {
-                      twiml.message("Room Key\nH1 - indicates hostel number\nR100 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write the exact format as on the list.")
+                //     if (availableMaleRooms.length > 0) {
+                //       twiml.message("Room Key\nH1 - indicates hostel number\nR100 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write the exact format as on the list.")
                 
-                      let roomOptions = `Available ${user.title} Gents Hostels:\n\n`;
+                //       let roomOptions = `Available ${user.title} Gents Hostels:\n\n`;
 
-                      var characterCount =0
+                //       var characterCount =0
 
-                      availableMaleRooms.forEach(room => {
-                        if(user.title.toLowerCase()=='student'){
-                          if(room.reservation.toLowerCase() =='student'){
+                //       availableMaleRooms.forEach(room => {
+                //         if(user.title.toLowerCase()=='student'){
+                //           if(room.reservation.toLowerCase() =='student'){
 
-                            if(characterCount<=1600){
-                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-                              characterCount = roomOptions.length
-                            }
+                //             if(characterCount<=1600){
+                //               roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                //               characterCount = roomOptions.length
+                //             }
 
-                            console.log("Student rooms request : "+ room.roomNumber);
-                          }
+                //             console.log("Student rooms request : "+ room.roomNumber);
+                //           }
                           
-                        }else{
-                          console.log("Alumni rooms request : "+ incomingMsg);
+                //         }else{
+                //           console.log("Alumni rooms request : "+ incomingMsg);
 
-                          if(room.reservation.toLowerCase() ==='alumni'){
+                //           if(room.reservation.toLowerCase() ==='alumni'){
 
-                            if(characterCount<=1600){
-                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-                              characterCount = roomOptions.length
-                            }
+                //             if(characterCount<=1600){
+                //               roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                //               characterCount = roomOptions.length
+                //             }
 
 
-                          }
-                        }
+                //           }
+                //         }
                         
 
-                      });
-                      console.log(roomOptions);
+                //       });
+                //       console.log(roomOptions);
                      
-                      twiml.message(roomOptions);
-                      await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
-                    } else {
-                      twiml.message("Sorry, there are no available rooms at the moment.");
-                    }
+                //       twiml.message(roomOptions);
+                //       await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
+                //     } else {
+                //       twiml.message("Sorry, there are no available rooms at the moment.");
+                //     }
 
-                  }else{
+                //   }else{
 
-                    console.log("FEMALE HOSTELS")
-                    if (availableLadiesRooms.length > 0) {
-                      twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write in the format below.")
+                //     console.log("FEMALE HOSTELS")
+                //     if (availableLadiesRooms.length > 0) {
+                //       twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write in the format below.")
                 
-                      let roomOptions = `Available ${user.title} Ladies Hostels:\n`
+                //       let roomOptions = `Available ${user.title} Ladies Hostels:\n`
 
-                      var characterCount =0
+                //       var characterCount =0
 
-                      availableLadiesRooms.forEach(room => {
+                //       availableLadiesRooms.forEach(room => {
 
-                        if(user.title.toLowerCase()=='student'){
+                //         if(user.title.toLowerCase()=='student'){
 
-                          console.log("Student rooms request : "+ incomingMsg);
-                          if(room.reservation.toLowerCase() =='student'){
-                            if(characterCount<=1600){
-                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-                              characterCount = roomOptions.length
-                            }
+                //           console.log("Student rooms request : "+ incomingMsg);
+                //           if(room.reservation.toLowerCase() =='student'){
+                //             if(characterCount<=1600){
+                //               roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                //               characterCount = roomOptions.length
+                //             }
 
-                          }
+                //           }
                           
-                        }else{
-                          console.log("Alumni rooms request : "+ incomingMsg);
-                          if(room.reservation.toLowerCase()==='alumni'){
+                //         }else{
+                //           console.log("Alumni rooms request : "+ incomingMsg);
+                //           if(room.reservation.toLowerCase()==='alumni'){
 
-                            if(characterCount<=1600){
-                              roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-                              characterCount = roomOptions.length
-                            }
+                //             if(characterCount<=1600){
+                //               roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
+                //               characterCount = roomOptions.length
+                //             }
                           
-                          }
-                        }
+                //           }
+                //         }
                         
-                      });
-                      await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
-                      twiml.message(roomOptions);
-                    } else {
-                      twiml.message("Sorry, there are no available rooms at the moment.");
-                    }
-                  }
+                //       });
+                //       await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
+                //       twiml.message(roomOptions);
+                //     } else {
+                //       twiml.message("Sorry, there are no available rooms at the moment.");
+                //     }
+                //   }
 
-                 }
+                //  }
 
-                } catch (error) {
+                // } catch (error) {
 
-                  console.error('Error retrieving available rooms:', error);
-                  twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
+                //   console.error('Error retrieving available rooms:', error);
+                //   twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
 
-                }
-              } else if (user.bookingStatus === 'selecting_room') {
-                try {
-                    const roomsCollection = db.collection('rooms');
-                    const roomNumber = incomingMsg;
-                    const roomNumberParts = roomNumber.substring(roomNumber.length - 9).split('_');
-
-                      if (roomNumberParts.length !== 3) {
-                        twiml.message('Invalid room number. Enter room number from the list above in the format: H1_R000_G');
-                      }else{
-
-                      console.log("Sender request: "+ user.bookingStatus);
-
-                      const hostel = roomNumberParts[0];
-                      const room = roomNumberParts[1];
-                      const floor = roomNumberParts[2];
-
-                      const agg = user.gender==="M"?
-                      [
-                        {
-                          '$match': {
-                            'gents_rooms.rooms.hostel': hostel, 
-                            'gents_rooms.rooms.roomNumber': room, 
-                            'gents_rooms.rooms.floor': floor, 
-                            'gents_rooms.rooms.availableBeds': {
-                              '$gt': 0
-                            }
-                          }
-                        }, {
-                          '$project': {
-                            'selectedRoom': {
-                              '$filter': {
-                                'input': '$gents_rooms.rooms', 
-                                'as': 'room', 
-                                'cond': {
-                                  '$and': [
-                                    {
-                                      '$eq': [
-                                        '$$room.hostel', hostel
-                                      ]
-                                    }, {
-                                      '$eq': [
-                                        '$$room.roomNumber', room
-                                      ]
-                                    }, {
-                                      '$eq': [
-                                        '$$room.floor', floor
-                                      ]
-                                    }, {
-                                      '$gt': [
-                                        '$$room.availableBeds', 0
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            }
-                          }
-                        }, {
-                          '$unwind': '$selectedRoom'
-                        }, {
-                          '$replaceRoot': {
-                            'newRoot': '$selectedRoom'
-                          }
-                        }
-                      ]:[
-                        {
-                          '$match': {
-                            'ladies_rooms.rooms.hostel': hostel, 
-                            'ladies_rooms.rooms.roomNumber': room, 
-                            'ladies_rooms.rooms.floor': floor, 
-                            'ladies_rooms.rooms.availableBeds': {
-                              '$gt': 0
-                            }
-                          }
-                        }, {
-                          '$project': {
-                            'selectedRoom': {
-                              '$filter': {
-                                'input': '$ladies_rooms.rooms', 
-                                'as': 'room', 
-                                'cond': {
-                                  '$and': [
-                                    {
-                                      '$eq': [
-                                        '$$room.hostel', hostel
-                                      ]
-                                    }, {
-                                      '$eq': [
-                                        '$$room.roomNumber', room
-                                      ]
-                                    }, {
-                                      '$eq': [
-                                        '$$room.floor', floor
-                                      ]
-                                    }, {
-                                      '$gt': [
-                                        '$$room.availableBeds', 0
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            }
-                          }
-                        }, {
-                          '$unwind': '$selectedRoom'
-                        }, {
-                          '$replaceRoot': {
-                            'newRoot': '$selectedRoom'
-                          }
-                        }
-                      ]
-        
-                      const cursor =  roomsCollection.aggregate(agg);
-                      const selectedRoom = await cursor.toArray();
-                      
-                      if (selectedRoom.length>0) {
-
-
-                        var availableBeds = (selectedRoom[0].availableBeds*1) - 1;
-                        console.log("\n\n\n\n\n\n\nSELECTED ROOOOOOOMMMMMMMMMMMM")
-                        console.log(selectedRoom)
-                        console.log(availableBeds)
-                        console.log(user.gender)
-                        console.log("SELECTED ROOOOOOOMMMMMMMMMMMM\n\n\n\n\n\n\n")
-
-                      
-
-
-                        if(user.gender=="F"){
-
-                          await roomsCollection.updateOne({
-                            'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
-                            'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
-                            'ladies_rooms.rooms.floor': selectedRoom[0].floor,
-                            'ladies_rooms.rooms.reservation': selectedRoom[0].reservation
-                        }, {
-
-                          $set: {
-                            'ladies_rooms.rooms.$.availableBeds': availableBeds
-                          }
-                        }).then(()=>{
-                          usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
-                          twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
-                        });
-
-                        }else{
-
-                        await roomsCollection.updateOne({
-                            'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
-                            'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
-                            'gents_rooms.rooms.floor': selectedRoom[0].floor,
-                            'gents_rooms.rooms.reservation': selectedRoom[0].reservation
-                          }, {
-                            $set: {
-                              'gents_rooms.rooms.$.availableBeds': availableBeds
-                            }
-                          }).then(()=>{
-                            usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
-                            twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
-                          });
-                        }
-        
-        
-
-                      } else {
-                        twiml.message(`Invalid room selection ${roomNumber}. Please enter correctly room.`);
-                      }
-                    }
-      
-                    
-                  
-                } catch (error) {
-                  console.error('Error selecting room:', error);
-                  twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
-                }
-              } else if (user.bookingStatus === 'room_selected') {
-                if (incomingMsg.toLowerCase() === 'yes') {
-                  const selectedRoom = user.selectedRoom;
-                  await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'BOOKED'} });
-                  twiml.message(`Your booking for Room ${selectedRoom} has been confirmed.`);
-                  twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Book/Select a room\n2. Registration status\n3. Program outline\n4. Theme song`);
-      
-                } else if (incomingMsg.toLowerCase() === 'no') {
-                  // const selectedRoom = user.selectedRoom;
-                  // const roomsCollection = db.collection('rooms');
-      
-                  // await roomsCollection.updateOne({ number: selectedRoom }, { $inc: { availableBeds: 1 } });
-      
-                  await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: '', selectedRoom: '' } });
-                  twiml.message(`Your booking for Room ${selectedRoom} has been cancelled.`);
-                } else {
-                  twiml.message(`Please reply with 'yes' to confirm your booking or 'no' to cancel.`);
-                }
-              }
-
-                     
+                // }
+              } 
               
-              //   if (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
-
-
-              //   try {
-              //     const roomsCollection = db.collection('rooms');
-
-              //     const cursor = roomsCollection.aggregate(aggLadiesRooms);
-              //     const availableLadiesRooms = await cursor.toArray();
-
-              //     const cursorMale = roomsCollection.aggregate(aggGentsRooms);
-              //     const availableMaleRooms = await cursorMale.toArray();
-
-                  
-              //     if(user.bookingStatus==="BOOKED"){
-              //       twiml.message(`Hey ${user.username}, You have already selected/been allocated a room.\n\n*Number: ${user.selectedRoom}*.`);
-              //   }else{
-
-                  
-              //     if(user.gender==="M"){
-
-
-
-              //       if (availableMaleRooms.length > 0) {
-              //         twiml.message("Room Key\nH1 - indicates hostel number\nR100 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered room from the list write the exact format as on the list.")
-                
-              //         let roomOptions = `Available ${user.title} Gents Hostels:\n\n`;
-
-              //         var characterCount =0
-
-              //         availableMaleRooms.forEach(room => {
-              //           if(user.title.toLowerCase()=='student'){
-              //             if(room.reservation.toLowerCase() =='student'){
-
-              //               if(characterCount<=1600){
-              //                 roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-              //                 characterCount = roomOptions.length
-              //               }
-
-              //               console.log("Student rooms request : "+ room.roomNumber);
-              //             }
-                          
-              //           }else{
-              //             console.log("Alumni rooms request : "+ incomingMsg);
-
-              //             if(room.reservation.toLowerCase() ==='alumni'){
-
-              //               if(characterCount<=1600){
-              //                 roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-              //                 characterCount = roomOptions.length
-              //               }
-
-
-              //             }
-              //           }
-                        
-
-              //         });
-              //         console.log(roomOptions);
-              //         await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
-              //         twiml.message(roomOptions);
-              //       } else {
-              //         twiml.message("Sorry, there are no available rooms at the moment.");
-              //       }
-
-              //     }else{
-
-              //       console.log("FEMALE HOSTELS")
-              //       if (availableLadiesRooms.length > 0) {
-              //         twiml.message("Room Key\nH1 - indicates hostel number\nR000 - indicates room number\nG - indicates Floor | Ground(G), Upper(U)\n\n To select a prefered from the list write in the format below. \nFor example H1_R000_U")
-                
-              //         let roomOptions = `Available ${user.title} Ladies Hostels:\n`
-
-              //         var characterCount =0
-
-              //         availableLadiesRooms.forEach(room => {
-
-              //           if(user.title.toLowerCase()=='student'){
-
-              //             console.log("Student rooms request : "+ incomingMsg);
-              //             if(room.reservation.toLowerCase() =='student'){
-              //               if(characterCount<=1600){
-              //                 roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-              //                 characterCount = roomOptions.length
-              //               }
-
-              //             }
-                          
-              //           }else{
-              //             console.log("Alumni rooms request : "+ incomingMsg);
-              //             if(room.reservation.toLowerCase()==='alumni'){
-
-              //               if(characterCount<=1600){
-              //                 roomOptions += `${room.roomNumber} - Beds: ${room.availableBeds}\n`;
-              //                 characterCount = roomOptions.length
-              //               }
-                          
-              //             }
-              //           }
-                        
-              //         });
-              //         await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'selecting_room' } });
-              //         twiml.message(roomOptions);
-              //       } else {
-              //         twiml.message("Sorry, there are no available rooms at the moment.");
-              //       }
-              //     }
-
-              //    }
-
-              //   } catch (error) {
-
-              //     console.error('Error retrieving available rooms:', error);
-              //     twiml.message("Oops! Something went wrong, our engineers are working to restore normalcy. Please try again later.");
-
-              //   }
-              // } else if (user.bookingStatus === 'selecting_room') {
+              // else if (user.bookingStatus === 'selecting_room') {
               //   try {
               //       const roomsCollection = db.collection('rooms');
               //       const roomNumber = incomingMsg;
@@ -794,7 +484,6 @@ router.post('/webhook', async (req, res) => {
               //         const hostel = roomNumberParts[0];
               //         const room = roomNumberParts[1];
               //         const floor = roomNumberParts[2];
-
 
               //         const agg = user.gender==="M"?
               //         [
@@ -896,21 +585,55 @@ router.post('/webhook', async (req, res) => {
               //         const cursor =  roomsCollection.aggregate(agg);
               //         const selectedRoom = await cursor.toArray();
                       
-              //         if (selectedRoom) {
-        
-              //           await roomsCollection.updateOne({
-              //             'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
-              //             'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
-              //             'ladies_rooms.rooms.floor': selectedRoom[0].floor,
-              //             'ladies_rooms.rooms.availableBeds': { $gt: 0 }
+              //         if (selectedRoom.length>0) {
+
+
+              //           var availableBeds = (selectedRoom[0].availableBeds*1) - 1;
+              //           console.log("\n\n\n\n\n\n\nSELECTED ROOOOOOOMMMMMMMMMMMM")
+              //           console.log(selectedRoom)
+              //           console.log(availableBeds)
+              //           console.log(user.gender)
+              //           console.log("SELECTED ROOOOOOOMMMMMMMMMMMM\n\n\n\n\n\n\n")
+
+                      
+
+
+              //           if(user.gender=="F"){
+
+              //             await roomsCollection.updateOne({
+              //               'ladies_rooms.rooms.hostel': selectedRoom[0].hostel,
+              //               'ladies_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
+              //               'ladies_rooms.rooms.floor': selectedRoom[0].floor,
+              //               'ladies_rooms.rooms.reservation': selectedRoom[0].reservation
               //           }, {
-              //             $inc: {
-              //               'ladies_rooms.rooms.$.availableBeds': -1
+
+              //             $set: {
+              //               'ladies_rooms.rooms.$.availableBeds': availableBeds
               //             }
+              //           }).then(()=>{
+              //             usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
+              //             twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
               //           });
+
+              //           }else{
+
+              //           await roomsCollection.updateOne({
+              //               'gents_rooms.rooms.hostel': selectedRoom[0].hostel,
+              //               'gents_rooms.rooms.roomNumber': selectedRoom[0].roomNumber,
+              //               'gents_rooms.rooms.floor': selectedRoom[0].floor,
+              //               'gents_rooms.rooms.reservation': selectedRoom[0].reservation
+              //             }, {
+              //               $set: {
+              //                 'gents_rooms.rooms.$.availableBeds': availableBeds
+              //               }
+              //             }).then(()=>{
+              //               usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
+              //               twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
+              //             });
+              //           }
         
-              //           await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: 'room_selected', selectedRoom: roomNumber } });
-              //           twiml.message(`You have successfully booked Room ${roomNumber}. Would you like to confirm your booking? (Reply 'yes' or 'no')`);
+        
+
               //         } else {
               //           twiml.message(`Invalid room selection ${roomNumber}. Please enter correctly room.`);
               //         }
@@ -930,10 +653,10 @@ router.post('/webhook', async (req, res) => {
               //     twiml.message(`Hello  ${user.username || 'Guest'}. ZEUC PCM Mission Conference conference!\n\nMenu:\n1. Book/Select a room\n2. Registration status\n3. Program outline\n4. Theme song`);
       
               //   } else if (incomingMsg.toLowerCase() === 'no') {
-              //     const selectedRoom = user.selectedRoom;
-              //     const roomsCollection = db.collection('rooms');
+              //     // const selectedRoom = user.selectedRoom;
+              //     // const roomsCollection = db.collection('rooms');
       
-              //     await roomsCollection.updateOne({ number: selectedRoom }, { $inc: { beds: 1 } });
+              //     // await roomsCollection.updateOne({ number: selectedRoom }, { $inc: { availableBeds: 1 } });
       
               //     await usersCollection.updateOne({ _id: sender }, { $set: { bookingStatus: '', selectedRoom: '' } });
               //     twiml.message(`Your booking for Room ${selectedRoom} has been cancelled.`);
@@ -942,8 +665,7 @@ router.post('/webhook', async (req, res) => {
               //   }
               // }
 
-              
-              
+
               
               else if (incomingMsg.toLowerCase().includes('registration status')||incomingMsg.toLowerCase() ==='1') {
                 // Handle registration status request
