@@ -38,7 +38,7 @@ router.post('/checkin', async (req, res) => {
     const db = mongoClient.db('pcmmiscon'); 
 
     const usersCollection = db.collection('users');
-    let user = await usersCollection.findOne({ _id: sender });
+    let user = await usersCollection.findOne({ _id: "263"+sender });
 
     if (!user) {
 
@@ -61,6 +61,7 @@ router.post('/checkin', async (req, res) => {
                   }
               });
           });
+         
   
           if (results.length === 0) {
               console.log("Sender registration not found: "+ sender);
@@ -75,10 +76,9 @@ router.post('/checkin', async (req, res) => {
 
           } else {
               console.log("Found registered user:", results[0]);
-              registeredUser = results[0];
-
+              
               await usersCollection.insertOne({
-                _id: sender, 
+                _id: "263"+sender, 
                 username: registeredUser.Name, 
                 gender:registeredUser.Gender,
                 title: registeredUser.Title,
@@ -119,7 +119,7 @@ router.post('/checkin', async (req, res) => {
   }
   else{
     try {
-        await usersCollection.updateOne({ _id: sender }, { $set: {  checkinStatus: 'CHECKED IN' } });
+        await usersCollection.updateOne({ _id: "263"+sender }, { $set: {  checkinStatus: 'CHECKED IN' } });
 
         res.status(200).send({
           'success': true,
@@ -175,16 +175,40 @@ router.post('/meals', async (req, res) => {
   try {
     await mongoClient.connect();
     const db = mongoClient.db('pcmmiscon'); 
-
     const mealsCollection = db.collection('canteen');
-    
     let mealTaken = await mealsCollection.findOne({ _id: senderId+"_"+meal+"_"+day });
+var registeredUser="";
+
+    const results = await new Promise((resolve, reject) => {
+
+      console.log("finding for food"+ csvFilePath+":"+searchValue)
+        searchRow(csvFilePath, "Phone", senderId, (error, results) => {
+            if (error) {
+                console.error('Error Occurred:', error);
+                reject(error);
+            } else {
+                console.log("Sender request result: "+ results);
+                resolve(results);
+            }
+        });
+    });
+
+    if (results.length === 0) {
+            
+    }else{
+
+      registeredUser = results[0].Name;
+
+    }
+
 
     if (!mealTaken) {
+      console.log("finding for new food")
 
             await mealsCollection.insertOne({
                 _id: senderId+"_"+meal+"_"+day, 
-                attendeedId: senderId, 
+                attendeedId: senderId,
+                username:registeredUser, 
                 meal:meal,
                 day: day,
                 status:"TAKEN",
@@ -194,11 +218,11 @@ router.post('/meals', async (req, res) => {
               'success': true,
               'message':`Checkin ${meal} successful.`,
               'responseBody': {
-                'message': `Checkin ${day} ${meal} successful.`,
-                attendeedId: senderId, 
-                meal:meal,
-                day: day,
-                status:"TAKEN",
+                message: `Checkin ${day} ${meal} successful.`,
+                userMealId:  senderId+"_"+meal+"_"+day, 
+                username:registeredUser, 
+                mealName: day+" "+meal,
+                checkinStatus:"TAKEN",
               }
             });
             res.end();
@@ -207,10 +231,11 @@ router.post('/meals', async (req, res) => {
               'success': false,
               'message':`User  already eaten.`,
               'responseBody': {
-                'message': `User already eaten ${day} ${meal}.`,
-                attendeedId: senderId, 
-                meal:meal,
-                day: day
+                message: `User already eaten ${day} ${meal}.`,
+                userMealId:  senderId+"_"+meal+"_"+day, 
+                username:registeredUser, 
+                mealName: day+" "+meal,
+                checkinStatus:"TAKEN"
               }
             });
             res.end();
