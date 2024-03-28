@@ -28,9 +28,10 @@ const mongoClient = new MongoClient(mongoURL, {
 
 router.post('/checkin', async (req, res) => {
 
-  const sender = req.body.phoneNumber;
+  const sender = req.body.requestBody.phoneNumber;
 
-  console.log("received checkin in request for  "+ sender);
+
+  console.log("received to checking from app for  "+ sender);
 
   try {
     await mongoClient.connect();
@@ -159,9 +160,11 @@ router.post('/checkin', async (req, res) => {
 
 router.post('/meals', async (req, res) => {
 
-  const sender = req.body.phoneNumber;
+  const sender = req.body.requestBody.phoneNumber;
 
-  console.log("received checkin in request for  "+ sender);
+
+  console.log("received to mood from app for  "+ sender);
+
 
   try {
     await mongoClient.connect();
