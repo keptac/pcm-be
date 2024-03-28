@@ -76,6 +76,8 @@ router.post('/checkin', async (req, res) => {
 
           } else {
               console.log("Found registered user:", results[0]);
+
+              registeredUser = results[0];
               
               await usersCollection.insertOne({
                 _id: "263"+sender, 
