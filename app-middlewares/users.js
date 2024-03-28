@@ -29,9 +29,9 @@ const mongoClient = new MongoClient(mongoURL, {
 router.post('/checkin', async (req, res) => {
 
   const sender = req.body.requestBody.phoneNumber;
-
-
+  console.log("+++++++++++++ "+ sender);
   console.log("received to checking from app for  "+ sender);
+  console.log("+++++++++++++ "+ sender);
 
   try {
     await mongoClient.connect();
