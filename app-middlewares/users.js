@@ -283,6 +283,5 @@ async function searchRow(csvFilePath, columnName, searchValue, callback) {
 }
 
 
-module.exports = router;
 
 module.exports = router;
