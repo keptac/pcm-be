@@ -342,9 +342,8 @@ router.post('/webhook', async (req, res) => {
               //ROOMS SELECTION WORKING
               //  (incomingMsg.toLowerCase()==='404') 
               
-                      
-                if  (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
 
+                if  (incomingMsg.toLowerCase().includes('book a room')||incomingMsg.toLowerCase()==='2') {
                   twiml.message("This option has been closed.");
 
                 // try {
