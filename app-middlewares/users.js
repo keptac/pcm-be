@@ -183,7 +183,8 @@ var registeredUser="";
 
     const results = await new Promise((resolve, reject) => {
 
-      console.log("finding for food"+ csvFilePath+":"+searchValue)
+
+      console.log("finding for food=====>"+ senderId+"_"+meal+"_"+day)
         searchRow(csvFilePath, "Phone", senderId, (error, results) => {
             if (error) {
                 console.error('Error Occurred:', error);
